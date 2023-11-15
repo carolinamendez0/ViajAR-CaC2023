@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/register.css">
+    <title>ViajAr</title>
+</head>
+<body>
+    <header>
+        <h1>ViajAr</h1>
+        <h1>Registro de Usuario (Sin terminar)</h1>
+    </header>
+    <main>
+        <div class="registro-container">
+            <div class="registro-form">
+                <h2>Completa el formulario</h2>
+                <form id="formularioRegistro" action="https://formspree.io/f/meqbabwj" method="POST" onsubmit="return validarFormulario()">
+                    <div class="campo">
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido" required>
+                    </div>
+                    <div class="campo">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div class="campo">
+                        <label for="fecnac">Fecha de nacimiento:</label>
+                        <input type="date" id="fecnac" name="fecnac" required>
+                    </div>
+                    <div class="campo">
+                        <label for="correo">Correo Electrónico:</label>
+                        <input type="email" id="correo" name="correo" required>
+                    </div>
+                    <div class="campo">
+                        <label for="pais">País:</label>
+                        <select type="pais" id="pais" name="pais">
+                            <option value="">País</option>
+                            <option value="AR">Argentina</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BR">Brasil</option>
+                            <option value="CH">Chile</option>
+                            <option value="CO">Colombia</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Perú</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="VE">Venezuela</option>
+                        </select>
+                    </div>
+                    <div class="campo">
+                        <label for="password">Contraseña:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </div>
+            <div class="registro-imagen">
+                <img src="./static/img/Argentina.jpg" alt="Argentina">
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2023 ViajAr</p>
+    </footer>
+    <script src="./static/js/register.js"></script>
+</body>
+</html>

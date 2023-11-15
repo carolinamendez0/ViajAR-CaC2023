@@ -1,0 +1,72 @@
+h1 {
+  color: #393232;
+  font-size: 2vw;
+  text-align: center;
+  padding: 20px;
+  margin: 20px;
+}
+
+h2 {
+  color: #0e0b0b;
+  font-size: 3vw;
+
+}
+
+p {
+  text-align: center;
+  margin: 15px;
+}
+
+.tour-item-detail-title {
+  /* color: rgb(11, 11, 11); */
+  color: #fff;
+  font-size: x-large;
+}
+
+.tour-item-detail-subtitle {
+  /* color: rgb(11,11,11); */
+  color: #fff;
+  font-size: large
+}
+
+.cuadricula {
+  height: 100%;
+  padding: 1px;
+  grid-gap: 1px;
+  grid-template-columns: repeat(2, 4fr);
+  grid-auto-flow: dense;
+  grid-template-rows: repeat (4, 3fr);
+  justify-items: center;
+  row-gap: 40px;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.item {
+  /* background: #FDE02F; */
+  background: #303350;
+  #303350 color: rgb(14, 14, 14);
+  padding: 1em;
+  width: 500px;
+  height: 620 px;
+  object-fit: cover;
+
+}
+
+.btn-info {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-info:hover {
+  background-color: #555;
+}
