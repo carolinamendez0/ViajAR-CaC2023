@@ -472,6 +472,19 @@ ul.menu {
     color: #FFA801;
 }
 
+.links li a{
+    font-family: Roboto;
+    color: white;
+    cursor: pointer;
+    padding: 15px 0;
+    text-decoration: none;
+}
+
+
+.links a:hover {
+    color: #FFA801;
+}
+
 
 /*==========================Responsive=============================*/
 /* MEDIA QUERY PANTALLAS MEDIANAS (TABLETS) */

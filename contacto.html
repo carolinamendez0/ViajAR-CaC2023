@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./css/contacto.css">
     <!-- FAVINCON -->
     <link rel="viajAR icon" href="./static/Logos/contacto.ico" type="image/x-icon">
+    
 </head>
 
 <body>
@@ -49,25 +50,21 @@
                 <h2>Contacto</h2>
                 <form id="formRegister" method="POST" action="#">
                     <div class="form-control">
-                        <!-- <i class="fa-solid fa-user"></i> -->
-                        <!-- <label for="firstname">Nombre</label> -->
                         <input type="text" name="firstname" id="firstname" placeholder="Nombre">
                     </div>
                     <div class="error" id="error-firstname"></div>
                     <div class="form-control">
-                        <!-- <label for="lastname">Apellido</label> -->
                         <input type="text" name="lastname" id="lastname" placeholder="Apellido">
                     </div>
                     <div class="error" id="error-lastname"></div>
                     <div class="form-control">
-                        <!-- <label for="email">Email</label> -->
                         <input type="email" name="email" id="email" placeholder="Email">
                     </div>
                     <div class="error" id="error-email"></div>
-                    <div class="form-control">
+                    <!-- <div class="form-control">
                         <label id="label-birthdate" for="birthdate">Fecha de Nacimiento</label>
                         <input type="date" name="birthdate" id="birthdate">
-                    </div>
+                    </div> -->
 
                     <div class="form-control">
                         <select name="country" id="country" class="form-select">
@@ -85,15 +82,33 @@
                         </select>
                     </div>
 
-                    <div class="form-control">
-                        <!-- <label for="affair">Asunto</label> -->
-                        <input type="text" name="affair" id="affair" placeholder="Apellido">
+                   <br>
+                   
+                    <div class="form-radio">
+                            <a>Año de Viaje:</a>
+                        <form>
+                            <div class="">
+                                <input type="radio" id="2024" name="year" value="2024">
+                                <label for="2024">2024</label>
+                            </div>
+                            <div class="">
+                                <input type="radio" id="2025" name="year" value="2025">
+                                <label for="2025">2025</label>
+                            </div>
+                            <div class="">
+                                <input type="radio" id="2026" name="year" value="2026">
+                                <label for="2026">2026</label>
+                            </div>
+                        </form>
                     </div>
+                    <div class="form-control">
+                        <p style="font-size: 14px; color: #fff;">Por favor, adjunte una imagen relacionada con su viaje.</p>
+                        <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                    </div>
+                    <br>
                     <div class="error" id="error-affair"></div>
                     <div class="form-control">
-                        <!-- <i class="fa-regular fa-note-sticky"></i> -->
                         <textarea id="message" name="message" rows="3">Escriba su mensaje aquí</textarea>
-                        <!-- <label for="message">Mensaje</label> -->
                     </div>
                     <div class="error" id="error-message"></div>
                     <div class="button">
@@ -128,8 +143,9 @@
             </div>
         </section>
     </main>
-    <script src="./js/validation-contacto.js"></script>
+   
 
+    <script src="./js/validation-contacto.js"></script>
 
 </body>
 
