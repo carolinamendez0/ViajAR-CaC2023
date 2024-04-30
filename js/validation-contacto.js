@@ -58,6 +58,12 @@ const validationForm = (event) => {
         yearInputs.forEach(input => {
             input.checked = false;
         });
+         // Borrar mensajes de error debajo de los campos de entrada
+        const errorElements = document.querySelectorAll('.error');
+        errorElements.forEach(errorElement => {
+            errorElement.textContent = '';
+            errorElement.classList.remove('error'); // Eliminar la clase de estilo que resalta el campo con error
+        });
      }
 }
 
