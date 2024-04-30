@@ -573,3 +573,40 @@ ul.menu {
 /*body {
         font-size: 16px;
     }/*
+*/ 
+.sky .plane {
+    /* position: absolute; */
+    /* animation:   stars 5s linear infinite; */
+    width: 500px;
+    margin-top: 90px;
+    left: -100px; /* Inicia fuera del lado izquierdo de la pantalla */
+    animation: flying 5s linear infinite;
+}
+
+
+.plane {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    animation: flying 5s linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes flying {
+    0% {
+            transform: translateX(0px);
+    }
+
+    100% {
+        /* transform: translateX(1000px); */
+        /* transform: translateY(-1000px);
+        transform: translateX(calc(100vw + 64px));*/
+        /* transform: translate(calc(100vw - 100px), calc(100vh - 100px)); */
+        transform: translate(calc(100vw - 100px), calc(-100vh + 100px));
+
+
+
+    }
+
+
+}
