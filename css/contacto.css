@@ -110,14 +110,65 @@ i {
     padding-right: 10px;
 }
 
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* background-color: #fde02f; */
+    border: 1px solid #ccc;
+    padding: 20px;
+    z-index: 9999;
+    width: 30%;
+    height: 15%;
+    background:#7d7d94;
+    border-radius: 8px ;
+    border: 5px solid #241730;
+    transition: all 5s ease-in-out; 
+    font-weight: bold;
+    font-family: Roboto;
+    text-align: center !important;
+    color: white;
+  }
+  
+  .popup-content {
+    text-align: center !important;
+  }
+  
+  .popup h2 {
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+    font-family: Tahoma, Arial, sans-serif;
+  }
+  /* .popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+  }
+  .popup .close:hover {
+    color: #06D85F;
+  } */
+  /* .popup .content {
+    max-height: 30%;
+    overflow: auto;
+  } */
+  
+
 form .form-control {
     height: 50px;
     position: relative;
     margin-top: 15px;
 }
 
-.form-control input,
-textarea {
+.form-control input
+ {
     height: 50%;
     width: 80%;
     background: rgba(255, 255, 255, 0.1);
@@ -128,6 +179,20 @@ textarea {
     font-size: 1rem;
     padding: 0 20px;
 }
+
+.form-control textarea
+ {
+    height: 100%;
+    width: 80%;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid white;
+    outline: none;
+    border-radius: 25px;
+    color: #fff;
+    font-size: 1rem;
+    padding: 0 20px;
+}
+
 
 .form-control select {
     width: 90%;
@@ -191,7 +256,7 @@ input:valid ~ label{
 
 .form-select {
     display: block;
-    width: 100%;
+    width: 80%;
     padding: 12px 20px;
     font-size: 1rem;
     font-weight: 400;
@@ -212,7 +277,7 @@ input:valid ~ label{
     border: 2px solid white;
     border-radius: 25px; 
     width:fit-content;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-family: Roboto;
     color: white !important;
 }

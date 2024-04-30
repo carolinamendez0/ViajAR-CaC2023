@@ -1,50 +1,64 @@
 const validationForm = (event) => {
 
-    alert('Estoy validando el formulario');
-    // event.preventDefault();
+    // alert('Estoy validando el formulario');
+    event.preventDefault();
 
-    // const firtsname = document.querySelector('#firstname');
-    // const lastname = document.querySelector('#lastname');
-    // const email = document.querySelector('#email');
-    // const affair = document.querySelector('#affair');
-    // const message = document.querySelector('#message');
+    const firtsname = document.querySelector('#firstname');
+    const lastname = document.querySelector('#lastname');
+    const email = document.querySelector('#email');
+    const country = document.querySelector('#country');
+    const image = document.querySelector('#image');
+    const message = document.querySelector('#message');
+    // Seleccionar todos los radio buttons con el nombre "year"
+    const yearInputs = document.querySelectorAll('input[name="year"]');
 
-    // let validation = true;
+    // Iterar sobre cada radio button y desmarcarlo
+    yearInputs.forEach(input => {
+        input.checked = false;
+    });
 
-    // if(firtsname.value === ''){
-    //     firtsname.classList.add('error');
-    //     const divError = document.querySelector('#error-firstname');
-    //     divError.textContent='Debes completar el campo nombre';
-    //     validation = false;
-    // }
-    // if(lastname.value === ''){
-    //     lastname.classList.add('error');
-    //     const divError = document.querySelector('#error-lastname');
-    //     divError.textContent='Debes completar el campo apellido';
-    //     validation= false;
-    // }
-    // if(email.value === ''){
-    //     email.classList.add('error');
-    //     const divError = document.querySelector('#error-email');
-    //     divError.textContent='Debes completar el campo email';
-    //     validation = false;
-    // }
-    // if(affair.value === ''){
-    //     affair.classList.add('error');
-    //     const divError = document.querySelector('#error-affair');
-    //     divError.textContent='Debes completar el campo asunto';
-    //     validation = false;
-    // }
-    // if(message.value === ''){
-    //     message.classList.add('error');
-    //     const divError = document.querySelector('#error-message');
-    //     divError.textContent='Debes completar el campo mensaje';
-    //     validation = false;
-    // }
+    let validation = true;
 
-    //  if(validation){
-    //      formRegister.submit();
-    //  }
+    if(firtsname.value === ''){
+        firtsname.classList.add('error');
+        const divError = document.querySelector('#error-firstname');
+        divError.textContent='Debes completar el campo nombre';
+        validation = false;
+    }
+    if(lastname.value === ''){
+        lastname.classList.add('error');
+        const divError = document.querySelector('#error-lastname');
+        divError.textContent='Debes completar el campo apellido';
+        validation= false;
+    }
+    if(email.value === ''){
+        email.classList.add('error');
+        const divError = document.querySelector('#error-email');
+        divError.textContent='Debes completar el campo email';
+        validation = false;
+    }
+
+     if(validation){
+        debugger;
+        //  formRegister.submit();
+        //  alert('h');
+         const popup = document.querySelector('#popup');
+         popup.style.display = 'block'; // Muestra el popup
+         setTimeout(() => {
+             popup.style.display = 'none'; // Oculta el popup después de un tiempo
+         }, 3000); 
+          // Borrar todos los campos del formulario
+        firstname.value = '';
+        lastname.value = '';
+        email.value = '';
+        country.value = '';
+        image.value = '';
+        message.value = '';
+            // Desmarcar todos los radio buttons con el nombre "year"
+        yearInputs.forEach(input => {
+            input.checked = false;
+        });
+     }
 }
 
 formRegister.addEventListener('submit',validationForm);

@@ -61,10 +61,6 @@
                         <input type="email" name="email" id="email" placeholder="Email">
                     </div>
                     <div class="error" id="error-email"></div>
-                    <!-- <div class="form-control">
-                        <label id="label-birthdate" for="birthdate">Fecha de Nacimiento</label>
-                        <input type="date" name="birthdate" id="birthdate">
-                    </div> -->
 
                     <div class="form-control">
                         <select name="country" id="country" class="form-select">
@@ -86,7 +82,6 @@
                    
                     <div class="form-radio">
                             <a>Año de Viaje:</a>
-                        <form>
                             <div class="">
                                 <input type="radio" id="2024" name="year" value="2024">
                                 <label for="2024">2024</label>
@@ -99,11 +94,10 @@
                                 <input type="radio" id="2026" name="year" value="2026">
                                 <label for="2026">2026</label>
                             </div>
-                        </form>
                     </div>
                     <div class="form-control">
                         <p style="font-size: 14px; color: #fff;">Por favor, adjunte una imagen relacionada con su viaje.</p>
-                        <input type="file" id="image" name="image" accept="image/*" onchange="previewImage(event)">
+                        <input type="file" id="image" name="image" accept="image/*">
                     </div>
                     <br>
                     <div class="error" id="error-affair"></div>
@@ -114,6 +108,17 @@
                     <div class="button">
                         <button type="submit">Enviar</button>
                     </div>
+
+                    <div id="popup" class="popup">
+                        <div id="popup-content" class="popup-content">
+                         
+                        </div>
+                            <h2>Gracias por su consulta</h2>
+                            <div class="content">
+                                El formulario ha sido enviado.
+                            </div>
+                    </div>
+                      
                 </form>
             </div>
             <div class="parte2">
