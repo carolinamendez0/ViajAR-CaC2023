@@ -25,6 +25,10 @@
     font-family: Satisfy;
 }
 
+ul {
+    list-style-type: none; /* Elimina los marcadores */
+}
+
 ul.menu {
     flex: 1;
     display: flex;
