@@ -2,6 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
 /*========================Nav Bar=========================*/
 .nav-bar {
     display: flex;
@@ -11,7 +23,9 @@
     background-color: #fff;
     box-shadow: 3px 3px 10px lightslategray;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-between;
+
     position: sticky;
     top: 0;
     z-index: 1;
@@ -129,17 +143,17 @@ i {
     background:#7d7d94;
     border-radius: 8px ;
     border: 5px solid #241730;
-    transition: all 5s ease-in-out; 
+    transition: all 5s ease-in-out;
     font-weight: bold;
     font-family: Roboto;
     text-align: center !important;
     color: white;
   }
-  
+
   .popup-content {
     text-align: center !important;
   }
-  
+
   .popup h2 {
     margin-top: 0;
     color: #333;
@@ -163,7 +177,7 @@ i {
     max-height: 30%;
     overflow: auto;
   } */
-  
+
 
 form .form-control {
     height: 50px;
@@ -279,7 +293,7 @@ input:valid ~ label{
     line-height: 1.5;
     background: #444;
     border: 2px solid white;
-    border-radius: 25px; 
+    border-radius: 25px;
     width:fit-content;
     /* font-weight: bold; */
     font-family: Roboto;
@@ -488,7 +502,7 @@ form .form-terms :where(label, a) {
     .logo {
         grid-column: span 12;
         margin-left: 0px;
-        background: #000;
+        background: #fff;
         width: 700px;
     }
 
@@ -539,6 +553,61 @@ form .form-terms :where(label, a) {
 }
 
 
+
+@media screen and (min-width: 357px) and (max-width: 991px) {
+    .menu {
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        width: 100%;
+        display: none;
+        grid-column: span 12;
+        white-space: nowrap;
+    }
+
+    .menu.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .menu li {
+        margin: 20px 0;
+    }
+
+    .form-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .form-wrapper input {
+        flex: 1;
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: calc(50% - 10px);    }
+  }
+
+  .parte2 {
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(50% - 10px);
+  }
+
+
+
+.iframe iframe {
+    width: 90%;
+    text-align: center;
+
+}
+
 /* MEDIA QUERY PANTALLAS GRANDES (PC)
 @media screen and (min-width: 992px) {
     /* Estilos para pantallas grandes */
@@ -548,4 +617,3 @@ form .form-terms :where(label, a) {
 
 
 
-    

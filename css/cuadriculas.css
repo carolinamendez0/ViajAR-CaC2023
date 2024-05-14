@@ -69,3 +69,14 @@ p {
 .btn-info:hover {
   background-color: #555;
 } */
+
+
+@media screen and (min-width: 357px) and (max-width: 991px) {
+  .cuadricula {
+    grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));
+  }
+  
+  .item {
+    max-width: none;
+  }
+}
