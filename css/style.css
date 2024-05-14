@@ -41,7 +41,9 @@ html {
     background-color: #fff;
     box-shadow: 3px 3px 10px lightslategray;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
+    justify-content: space-between;
+
     position: sticky;
     top: 0;
     z-index: 1;
@@ -59,10 +61,14 @@ ul {
     list-style-type: none; /* Elimina los marcadores */
 }
 
+
+
 ul.menu {
     flex: 1;
     display: flex;
     flex-flow: row wrap;
+    list-style-type: none;
+    justify-content: center;
 }
 
 .menu li {
@@ -492,20 +498,105 @@ ul.menu {
 
 
 /*==========================Responsive=============================*/
+
+
+@media screen and (min-width: 357px) and (max-width: 991px) {
+    body::before {
+        display: none;
+    }
+
+    .nav-bar {
+        display: grid;
+        height: 200px;
+        
+    }
+
+    .menu {
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        width: 100%;
+        display: none;
+        grid-column: span 12;
+        white-space: nowrap;
+    }
+
+    .menu.active {
+        display: flex; /* Mostrar el menú cuando se activa */
+        flex-direction: column;
+    }
+
+    .menu li {
+        margin: 10px 0;
+    }
+
+    .logo {
+        margin: 10px 0;
+    }
+
+    .form {
+        margin-top: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+    .form input[type="text"],
+    .form input[type="date"],
+    .form .book {
+        flex: 1;
+        margin: 5px;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        width: calc(50% - 10px); /* 50% del ancho con margen entre ellos */
+    }
+
+    .form input[type="text"],
+    .form input[type="date"] {
+        width: calc(20% - 10px); /* 50% del ancho con margen entre ellos */
+    }
+
+    .form .book {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        
+    }
+
+    .cards {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .text {
+        padding: 5px;
+    }
+    .banner-heading h1 {
+        font-size: 36px; 
+       }
+       
+       
+}
+
+/* Añadido: Media query para dispositivos móviles */
+@media screen and (max-width: 767px) {
+    .banner-heading h1 {
+        font-size: 24px; /* Modificado */
+    }
+}
 /* MEDIA QUERY PANTALLAS MEDIANAS (TABLETS) */
-@media screen and (min-width: 768px) and (max-width: 991px) {
+
+/* MEDIA QUERY PANTALLAS MEDIANAS (TABLETS) */
+/* @media screen and (min-width: 768px) and (max-width: 991px) {
     body::before {
         display: none;
     }
 
     .nav-bar {
         /* display: flex;
-        flex-wrap: wrap; */
-        /* white-space: nowrap; */
         display: grid;
         font-size: 1em;
         justify-content: center;
-        /* background: black; */
+        background: black;
         color: #fff;
         height: 300px;
     }
@@ -515,7 +606,6 @@ ul.menu {
         padding-right: 45px;
 
         white-space: nowrap;
-        /* color:#fff; */
     }
 
     .logo {
@@ -538,9 +628,7 @@ ul.menu {
     .form-wrapper {
         display: flex;
         flex-wrap: wrap;
-        /* padding: 20px 70px; */
         margin-top: 630px;
-        /* margin-right: 120px; */
     }
 
     .parte1 {
@@ -570,7 +658,7 @@ ul.menu {
     }
 
 }
-
+ */
 
 /* MEDIA QUERY PANTALLAS GRANDES (PC)
 @media screen and (min-width: 992px) {
@@ -578,7 +666,7 @@ ul.menu {
 /*body {
         font-size: 16px;
     }/*
-*/ 
+*/
 .sky .plane {
     /* position: absolute; */
     /* animation:   stars 5s linear infinite; */
