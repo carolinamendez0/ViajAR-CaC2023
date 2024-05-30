@@ -187,7 +187,8 @@ form .form-control {
 
 .form-control input
  {
-    height: 50%;
+    height: 80%;
+    display: block;
     width: 80%;
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid white;
@@ -195,8 +196,10 @@ form .form-control {
     border-radius: 25px;
     color: #fff;
     font-size: 1rem;
-    padding: 0 20px;
+    padding: 12px 20px;
+
 }
+
 
 .form-control textarea
  {
@@ -211,11 +214,11 @@ form .form-control {
     padding: 0 20px;
 }
 
-
+/* 
 .form-control select {
     width: 90%;
-    /* background:  rgba(255,255,255,0.1); */
-}
+    background:  rgba(255,255,255,0.1); 
+} */
 
 .form-control textarea,
 input:is(:focus, :valid) {
@@ -470,6 +473,15 @@ form .form-terms :where(label, a) {
     .button {
         text-align: center;
         padding-right: 20px;
+    }
+
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        width: 50%;
+        height: 20%;
+        font-size: small;
     }
 }
 

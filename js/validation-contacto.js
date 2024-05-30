@@ -39,7 +39,6 @@ const validationForm = (event) => {
     }
 
      if(validation){
-        debugger;
         //  formRegister.submit();
         //  alert('h');
          const popup = document.querySelector('#popup');
