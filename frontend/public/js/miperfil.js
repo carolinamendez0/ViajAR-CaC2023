@@ -33,8 +33,6 @@ async function datosUsuario() {
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
-                console.log(rol)
-
                 if (rol === 1) {
                     document.getElementById('boletoTableContainer').style.display = 'none';
                     document.getElementById('vistaAdmin').style.display = 'block';
@@ -43,19 +41,39 @@ async function datosUsuario() {
                     verTodosUsu(idusuarios)
                 }
                 else {
-
-                const table = $('#boletosTable').DataTable();
-                // Limpiar cualquier dato previo en la tabla
-                table.clear();
-                // Rellenar la tabla con los datos obtenidos acá faltaria hacer un ajax para la vista de los paquetes que compro ese data.id usuarios
-                data.forEach(data => {
-                    table.row.add([
-                        data.nombre,
-                        data.apellido,
-                        data.mail,
-                        `<button class="btn btn-danger" style="text-align: center;" onclick="borrarUsuario(${data.idusuarios})"><i class="fa-solid fa-trash"></i></button>`
-                    ]).draw(false);
-                });
+                    $.ajax({
+                        type: "GET",
+                        url: `/facturacion/${idusuarios}`,
+                        contentType: "application/json",
+                        success: function (data) {
+                            const fetchPaquetes = async ()=>{
+                                try {
+                                    const table = $('#boletosTable').DataTable();
+                                    table.clear();
+                                    for (const item of data) {
+                                        const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
+                                        const paquetes = respuesta.data;
+                                        
+                                        table.row.add([
+                                            paquetes.titulo_paquete,
+                                            paquetes.descripcion_paquete,
+                                            paquetes.destino_paquete,
+                                            '$ ' + paquetes.precio_paquete,
+                                            '20/10/2024',
+                                            `<button class="btn" style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
+                                        ]).draw(false);
+                                    }
+                                } catch (error) {
+                                console.error("Error al obtener los posteos", error)
+                                }
+                            }
+                            fetchPaquetes()
+                        },
+                            error: function (xhr, textStatus, errorThrown) {
+                                console.error("Error en la solicitud:", xhr);
+                            }
+                    });
+                
 
                 }
             },
@@ -199,7 +217,7 @@ function borrarUsuario(userId) {
 
 // Evento que se dispara al cargar la página
 window.addEventListener("load", function() {
-    datosUsuario();
+    // datosUsuario();
 
             // icono para mostrar contraseña
             showPassword = document.querySelector('.show-password');

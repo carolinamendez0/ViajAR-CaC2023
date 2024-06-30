@@ -3,10 +3,10 @@ const router= express.Router()
 router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud como JSON
 
 
-const {traerPaquetes,traerUnPaquete,crearUnPaquete,actualizarPaquete,borrarPaquete } = require ("../controllers/paquetesControllers.js")
+const {traerPaquetes,traerunPaquete,crearUnPaquete,actualizarPaquete,borrarPaquete } = require ("../controllers/paquetesControllers.js")
 
 router.get ("/",traerPaquetes) 
-// router.get ("/:id",traerUnPaquete)
+router.get ("/:id",traerunPaquete)
 // router.post ("/",crearUnPaquete) 
 // router.put ("/:id",actualizarPaquete ) 
 // router.delete ("/:id",borrarPaquete)
