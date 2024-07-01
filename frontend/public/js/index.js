@@ -12,22 +12,19 @@ document.addEventListener("DOMContentLoaded", ()=>{
       const respuesta = await axios(`http://localhost:3001/paquetes`);
       //console.log(respuesta.data);
       const paquetes = respuesta.data;
-      //Borrar todo antes de cargar?
-      //paquetesContainer.innerHTML="";
 
       paquetes.forEach(paquete => {
-
         //creando elementos
-        const card = document.createElement("div");
+            const card = document.createElement("div");
             const zoomImg = document.createElement("div");
-                const imgCard = document.createElement("div");
+            const imgCard = document.createElement("div");
             const text = document.createElement("div");
-                const rating = document.createElement("span");
-                const viajAR = document.createElement("h2");
-                const cost = document.createElement("p");
-                const cardBox = document.createElement("div");
-                    const time = document.createElement("p");
-                    const location = document.createElement("p");
+            const rating = document.createElement("span");
+            const viajAR = document.createElement("h2");
+            const cost = document.createElement("p");
+            const cardBox = document.createElement("div");
+            const time = document.createElement("p");
+            const location = document.createElement("p");
               
 
         //asignar el contenido a los elementos
@@ -68,32 +65,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         card.appendChild(text);
 
         paquetesContainer.appendChild(card);
-
-
-
-
-
       });
-
-      
-/*       <!-- <div class="card">
-                        <div class="zoom-img">
-                            <div class="img-card">
-                                <img src="img/LugaresFavoritos/Iguazu.jpg">
-                            </div>
-                        </div>
-        
-                        <div class="text">
-                            <span class="rating">&#11088;&#11088;&#11088;&#11088;&#11088;</span>
-                            <h2>ViajAR</h2>
-                            <p class="cost">$1000 / Por Persona</p>
-                            <div class="card-box">
-                                <p class="time">&#128339; 3 Días</p>
-                                <p class="location">&#9992; Pto Iguazú Misiones</p>
-                            </div>
-                        </div>
-        
-                    </div> --> */
     } catch (error) {
       console.error("Error al obtener los posteos", error)
     }
@@ -106,28 +78,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 })
 
 
- const apiUrl = 'http://localhost:3001';
-
-        function fetchUsers() {
-
-            fetch(`${apiUrl}/usuarios`)
-
-                .then(response => response.json())
-                .then(data => {
-                    const userList = '';
-                    userList.innerHTML = '';
-                    data.forEach(usuarios => {
-                        // console.log(usuarios)
-                        // const li = document.createElement('li');
-                        // li.innerHTML = `<strong>Nombre Completo: ${user.username} </strong>` ;
-                        // li.innerHTML += `<br>E-mail: ${user.email}`;
-                        // userList.appendChild(li);
-                    });
-                });
-        }
-fetchUsers();
-
-
 // Función para obtener y mostrar los paquetes
 async function mostrarPaquetes() {
   try {
@@ -136,14 +86,13 @@ async function mostrarPaquetes() {
       throw new Error('No se pudo obtener la lista de paquetes');
     }
     const data = await response.json();
-
     const paquetesContainer = document.getElementById('paquetesContainer');
 
     // Iterar sobre cada paquete y crear la estructura HTML dinámicamente
-    data.forEach(paquete => {
+      data.forEach(paquete => {
       console.log(paquete);
 
-          const card = document.createElement('div');
+      const card = document.createElement('div');
       card.classList.add('card');
 
       const imgDiv = document.createElement('div');

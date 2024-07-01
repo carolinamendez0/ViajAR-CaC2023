@@ -20,6 +20,8 @@
     "mysql2": "^3.10.1",
     "notenv": "^2.0.3",
     "path": "^0.12.7",
+    "pdf-lib": "^1.17.1",
+    "qrcode": "^1.5.3",
     "sequelize": "^6.37.3"
   },
   "devDependencies": {

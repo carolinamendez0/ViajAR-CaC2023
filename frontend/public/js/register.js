@@ -82,7 +82,7 @@ $(document).ready(function() {
     });
 
     // Evento para mostrar/ocultar contraseña
-    $('.show-password').on('click', function () {
+    $('.show-password').on('', function () {
         var passwordField = $('.password1');
         var type = passwordField.attr('type') === 'password' ? 'text' : 'password';
         passwordField.attr('type', type);

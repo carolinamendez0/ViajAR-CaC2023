@@ -1,3 +1,55 @@
+   $(document).ready(function() {
+    $('#usuariosTable').DataTable({
+        columnDefs: [
+            { orderable: false, targets: -1 } // Deshabilitar el sorting en la última columna (Acciones)
+        ]
+    });
+        datosUsuario(); // Cargar datos del usuario al iniciar
+   });
+
+function dowloadTicket(usuarios,paquetes) {
+     // Parsear el JSON para obtener el objeto paquetes
+        const paquetesjson = JSON.parse(paquetes);
+        // console.log(paquetes)
+        downloadTicket(usuarios,paquetes);
+}
+
+async function downloadTicket(userData, ticketData) {
+    const requestData = {
+        ticketData,
+        userData
+    };
+    const requ = JSON.stringify(requestData)
+        console.log(requ);
+    
+    try {
+
+        const response = await fetch('/pdf/generate-ticket', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: requ
+        });
+
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'ticket.pdf';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+        } else {
+            console.error('Failed to generate ticket:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error generating ticket:', error);
+    }
+}
+
 
 // Función para decodificar el JWT
 function decodeJWT(token) {
@@ -33,6 +85,8 @@ async function datosUsuario() {
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
+                const usuJson = JSON.stringify(data);
+
                 if (rol === 1) {
                     document.getElementById('boletoTableContainer').style.display = 'none';
                     document.getElementById('vistaAdmin').style.display = 'block';
@@ -45,22 +99,24 @@ async function datosUsuario() {
                         type: "GET",
                         url: `/facturacion/${idusuarios}`,
                         contentType: "application/json",
-                        success: function (data) {
+                        success: function (dataf) {
                             const fetchPaquetes = async ()=>{
                                 try {
                                     const table = $('#boletosTable').DataTable();
                                     table.clear();
-                                    for (const item of data) {
+                                    for (const item of dataf) {
                                         const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
                                         const paquetes = respuesta.data;
-                                        
+                                        const paquetesJson = JSON.stringify(paquetes);
+
                                         table.row.add([
                                             paquetes.titulo_paquete,
                                             paquetes.descripcion_paquete,
                                             paquetes.destino_paquete,
                                             '$ ' + paquetes.precio_paquete,
                                             '20/10/2024',
-                                            `<button class="btn" style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
+                                            `<button class="btn" onclick='downloadTicket(${JSON.stringify(usuJson)},${JSON.stringify(paquetesJson)})' style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
+
                                         ]).draw(false);
                                     }
                                 } catch (error) {
@@ -241,14 +297,4 @@ window.addEventListener("load", function() {
 
 });
 
-    $(document).ready(function() {
-    $('#usuariosTable').DataTable({
-        columnDefs: [
-            { orderable: false, targets: -1 } // Deshabilitar el sorting en la última columna (Acciones)
-        ]
-    });
-    datosUsuario(); // Cargar datos del usuario al iniciar
-});
-
-
-
+ 

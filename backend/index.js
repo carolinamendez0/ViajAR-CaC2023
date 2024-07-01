@@ -9,6 +9,8 @@ const paquetesRouter = require("./routes/paquetesRouter.js")
 const usuariosRouter = require("./routes/userRouter.js")
 const comentarioRouter = require("./routes/comentarioRouter.js")
 const facturacionRouter = require("./routes/facturacionRouter.js")
+const pdfRouter = require("./routes/pdfRouter.js")
+
 
 const authenticate = require('./middleware/authenticate.js'); // Importa el middleware de autenticación
 
@@ -23,7 +25,9 @@ const PORT = process.env.PORT || 3001;
 app.use("/paquetes", paquetesRouter)
 app.use ("/usuarios",usuariosRouter)
 app.use("/comentarios", comentarioRouter)
-app.use ("/facturacion",facturacionRouter)
+app.use("/facturacion", facturacionRouter)
+app.use ("/pdf", pdfRouter)
+
 
 
 app.use(express.static(path.join(__dirname, '../frontend/public')));
