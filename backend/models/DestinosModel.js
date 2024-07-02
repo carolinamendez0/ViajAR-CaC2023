@@ -2,41 +2,49 @@ const db = require ("../data/bd.js")
 
 const {DataTypes} = require ("sequelize")
 
-const PaquetesModel = db.define ("paquetes",{
-    idpaquetes: {
+const DestinosModel = db.define ("destinos",{
+    iddestino: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
   },
-  titulo_paquete: {
+  titulo_destino: {
     type: DataTypes.STRING(45),
-    allowNull: true,
-    defaultValue: null,
+    allowNull: false,
     collate: 'utf8mb3_bin'
   },
-  descripcion_paquete: {
+  descripcion_destino: {
     type: DataTypes.STRING(350),
     allowNull: true,
     defaultValue: null,
     charset: 'utf8mb3'
   },
-  img_paquete: {
+  region_destino: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    charset: 'utf8mb3'
+  },
+    ciudad: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    charset: 'utf8mb3'
+  },
+  provincia: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    charset: 'utf8mb3'
+  },
+    pais: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+    charset: 'utf8mb3'
+  },
+  img_destino: {
     type: DataTypes.STRING(150),
     allowNull: true,
     defaultValue: null,
     charset: 'utf8mb3'
-  },
-  precio_paquete: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    defaultValue: null
-  },
-  dias_paquete: {
-    type: DataTypes.STRING(45),
-    allowNull: true,
-    defaultValue: null,
-    collate: 'utf8mb3_bin'
   },
   createdAt: {
     type: DataTypes.DATE,
@@ -50,18 +58,15 @@ const PaquetesModel = db.define ("paquetes",{
     defaultValue: null,
     field: 'updatedAt' // Esta opción indica a Sequelize que use 'updated_at' en lugar de 'updatedAt'
   },
-   id_destinos: {
+  id_destinos: {
     type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'destinos', // Nombre de la tabla a la que hace referencia
-      key: 'iddestino' // Campo en la tabla
-    }
-}
+    allowNull: <FALSE></FALSE>,
+    defaultValue: null
+  }
 }, {
   tableName: 'paquetes',
   timestamps: true, // Esto gestionará automáticamente los campos createdAt y updatedAt
   underscored: true // Si tus nombres de columnas tienen guiones bajos, esto ayudará a que sequelize los maneje correctamente
 });
 
-module.exports = PaquetesModel
+module.exports = DestinosModel

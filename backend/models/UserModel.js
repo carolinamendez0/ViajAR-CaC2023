@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 
 const UsuarioModel = db.define ("usuarios",{
-  idusuarios: {
+  idusuario: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -17,6 +17,11 @@ const UsuarioModel = db.define ("usuarios",{
   apellido: {
     type: DataTypes.STRING(45),
     allowNull: false
+  },
+  apellido: {
+    type: DataTypes.INTEGER(8),
+    allowNull: false,
+    unique: true // Asegura que eL DNI
   },
   mail: {
     type: DataTypes.STRING(45),

@@ -11,13 +11,19 @@ const FacturacionModel = db.define ("facturacion",{
     },
     id_usuario: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
-    },
-    id_paquete: {
+    allowNull: false,
+    references: {
+      model: 'usuarios', // Nombre de la tabla a la que hace referencia
+      key: 'idusuario' // Campo en la tabla usuarios
+    }
+  },
+  id_paquete: {
     type: DataTypes.INTEGER,
-    primaryKey: true,
-    allowNull: false
+    allowNull: false,
+    references: {
+      model: 'paquetes', // Nombre de la tabla a la que hace referencia
+      key: 'idpaquetes' // Campo en la tabla paquete
+    }
   },
   createdAt: {
     type: DataTypes.DATE,
