@@ -7,19 +7,23 @@
         datosUsuario(); // Cargar datos del usuario al iniciar
    });
 
-function dowloadTicket(usuarios,paquetes) {
-     // Parsear el JSON para obtener el objeto paquetes
-        const paquetesjson = JSON.parse(paquetes);
-        // console.log(paquetes)
-        downloadTicket(usuarios,paquetes);
-}
+// function dowloadTicket(usuarios,paquetes) {
+//      // Parsear el JSON para obtener el objeto paquetes
+//         const paquetesjson = JSON.parse(paquetes,usuarios);
+//         console.log('object');
+//         // console.log(paquetes)
+//         downloadTicket(paquetesjson);
+// }
 
-async function downloadTicket(userData, ticketData) {
+async function downloadTicket(usuJson,paquetesjson) {
     const requestData = {
-        ticketData,
-        userData
+        paquetesjson,
+        usuJson
     };
+    console.log(requestData.paquetesjson);
     const requ = JSON.stringify(requestData)
+    
+    console.log('recu');
         console.log(requ);
     
     try {
