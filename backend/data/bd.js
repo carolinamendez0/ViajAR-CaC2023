@@ -9,7 +9,7 @@ require('dotenv').config();
 //     port:3307
 // })
 
-const db = new Sequelize ("viaja2024_viajar2024",process.env.DB_USER,process.env.DB_PASSWORD,{
+const db = new Sequelize ("viaja2024_appviajes",process.env.DB_USER,process.env.DB_PASSWORD,{
     host: process.env.DB_HOST,
     dialect: "mysql",
     port:3306
