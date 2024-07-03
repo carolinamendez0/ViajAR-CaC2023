@@ -3,6 +3,8 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const { Op } = require('sequelize');
+
 
 const UserModel = require("../models/UserModel.js")
 router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud como JSON
@@ -73,18 +75,26 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
             req.body.password = hashedPassword;
       }
       
-      const dniUser = await UserModel.findOne({ where: { dni: req.body.dni } });
-      const Emailuser = await UserModel.findOne({ where: { mail: req.body.mail } });
+      // Consulta con Op.ne (Operador not equal):
 
+    // Verificar si se está intentando cambiar el DNI y asegurarse de que no esté duplicado
+    if (req.body.dni !== user.dni) {
+      const dniUser = await UserModel.findOne({ where: { dni: req.body.dni, idusuario: { [Op.ne]: user.idusuario } } });
       if (dniUser) {
-        return res.status(404).json({ message: "Dni existente" });
-      } else if (Emailuser) {
-        return res.status(404).json({ message: "Email existente" });
+        console.log(dniUser);
+        return res.status(409).json({ message: "DNI ya existe en la base de datos" });
       }
-
+    }
+    if (req.body.email !== user.mail) {
+      const mailUser = await UserModel.findOne({ where: { mail: req.body.email, idusuario: { [Op.ne]: user.idusuario } } });
+      if (mailUser) {
+        console.log(mailUser);
+        return res.status(409).json({ message: "Email ya existe en la base de datos" });
+      }
+    }
         // Actualizar el usuario con los nuevos datos
       await user.update(req.body);
-      console.log(req.body)
+      // console.log(req.body)
         
         res.json({"message": "Registro actualizado correctamente"}) 
     } catch (error) {

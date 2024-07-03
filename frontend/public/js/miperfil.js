@@ -192,13 +192,20 @@ async function enviarDatos(formData) {
         const idusuario= decoded.id;
 
         const response = await fetch(`/usuarios/${idusuario}`, requestOptions);
+        const dataResponse = await response.json();
+        console.log(response.status);
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.status = 409) {
+            if (dataResponse.message === "DNI ya existe en la base de datos") {
+                console.log(dataResponse.message);
+                $("#dni-error").text(dataResponse.message);
+                } else if (dataResponse.message === "Email ya existe en la base de datos") {
+                $("#email-error").text(dataResponse.message);
+                }
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
         }
-
-        const data = await response.json();
-        console.log('Respuesta del servidor:', data);
     } catch (error) {
         console.error('Error al enviar datos al servidor:', error);
     }
