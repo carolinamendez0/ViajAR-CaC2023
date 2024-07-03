@@ -5,10 +5,11 @@ const path = require('path');
 async function generateTicket(req, res) {
 
   const ticketData=JSON.parse((req.body.paquetesjson))
+  const paqueteData=ticketData.paquetes
+  const destinoData=ticketData.destinos
   const userData=JSON.parse((req.body.usuJson))
 
-  console.log('ticket generate');
-  console.log(req.body);
+  console.log(paqueteData);
   try {
     const pdfDoc = await PDFDocument.create();
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman)
@@ -43,10 +44,10 @@ async function generateTicket(req, res) {
         page.drawText("DESCRIPCIÓN:", { x: 50, y: 270, size: 15,font: helveticaBoldFont, color: rgb(0, 0.53, 0.71)});
         page.drawText("DESTINO:", { x: 50, y: 240, size: 15,font: helveticaBoldFont, color: rgb(0, 0.53, 0.71)});
         page.drawText("PRECIO:", { x: 50, y: 210, size: 15,font: helveticaBoldFont, color: rgb(0, 0.53, 0.71)});
-        page.drawText(`${ticketData.titulo_paquete}`, { x: 130, y: 300, size: 12,font: timesRomanFont });
-        page.drawText(`${ticketData.descripcion_paquete}`, { x: 170, y: 270, size: 12,font: timesRomanFont });
-        page.drawText(`${ticketData.destino_paquete}`, { x: 130, y: 240, size: 12,font: timesRomanFont });
-        page.drawText(`$${ticketData.precio_paquete}`, { x: 130, y: 210, size: 12,font: timesRomanFont });
+        page.drawText(`${paqueteData.titulo_paquete}`, { x: 130, y: 300, size: 12,font: timesRomanFont });
+        page.drawText(`${paqueteData.descripcion_paquete}`, { x: 170, y: 270, size: 12,font: timesRomanFont });
+        page.drawText(`${destinoData.titulo_destino}`, { x: 130, y: 240, size: 12,font: timesRomanFont });
+        page.drawText(`$${paqueteData.precio_paquete}`, { x: 130, y: 210, size: 12,font: timesRomanFont });
         // Datos del Usuario 
         page.drawText("NOMBRE:", { x: 50, y: 180, size: 15,font: helveticaBoldFont, color: rgb(0, 0.53, 0.71)});
         page.drawText("APELLIDO:", { x: 50, y: 150, size: 15,font: helveticaBoldFont, color: rgb(0, 0.53, 0.71)});

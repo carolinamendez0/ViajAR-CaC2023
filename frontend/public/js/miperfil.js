@@ -7,13 +7,6 @@
         datosUsuario(); // Cargar datos del usuario al iniciar
    });
 
-// function dowloadTicket(usuarios,paquetes) {
-//      // Parsear el JSON para obtener el objeto paquetes
-//         const paquetesjson = JSON.parse(paquetes,usuarios);
-//         console.log('object');
-//         // console.log(paquetes)
-//         downloadTicket(paquetesjson);
-// }
 
 async function downloadTicket(usuJson,paquetesjson) {
     const requestData = {
@@ -112,17 +105,18 @@ async function datosUsuario() {
                                     table.clear();
                                     for (const item of dataf) {
                                         const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
-                                        const paquetes = respuesta.data;
-                                        const paquetesJson = JSON.stringify(paquetes);
+                                        const datosRespuesta = respuesta.data;
+                                        console.log(datosRespuesta.paquetes.titulo_paquete);
+                                        console.log(datosRespuesta.destinos);
+                                        const paquetesJson = JSON.stringify(datosRespuesta);
 
                                         table.row.add([
-                                            paquetes.titulo_paquete,
-                                            paquetes.descripcion_paquete,
-                                            paquetes.destino_paquete,
-                                            '$ ' + paquetes.precio_paquete,
+                                            datosRespuesta.paquetes.titulo_paquete,
+                                            datosRespuesta.destinos.titulo_destino,
+                                            datosRespuesta.paquetes.descripcion_paquete,
+                                            '$ ' + datosRespuesta.paquetes.precio_paquete,
                                             '20/10/2024',
                                             `<button class="btn" onclick='downloadTicket(${JSON.stringify(usuJson)},${JSON.stringify(paquetesJson)})' style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
-
                                         ]).draw(false);
                                     }
                                 } catch (error) {

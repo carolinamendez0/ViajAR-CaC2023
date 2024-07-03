@@ -57,14 +57,9 @@ const DestinosModel = db.define ("destinos",{
     allowNull: true,
     defaultValue: null,
     field: 'updatedAt' // Esta opción indica a Sequelize que use 'updated_at' en lugar de 'updatedAt'
-  },
-  id_destinos: {
-    type: DataTypes.INTEGER,
-    allowNull: <FALSE></FALSE>,
-    defaultValue: null
   }
 }, {
-  tableName: 'paquetes',
+  tableName: 'destinos',
   timestamps: true, // Esto gestionará automáticamente los campos createdAt y updatedAt
   underscored: true // Si tus nombres de columnas tienen guiones bajos, esto ayudará a que sequelize los maneje correctamente
 });
