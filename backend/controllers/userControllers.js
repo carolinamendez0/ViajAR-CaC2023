@@ -58,7 +58,7 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
     console.log(nuevoUsuario)
        return res.status(201).json({ message: "Usuario creado exitosamente", usuario: nuevoUsuario });
     } catch (error) {
-         console.error("Error en la solicitud:", error.message);
+        //  console.error("Error en la solicitud:", error.message);
         return res.status(500).json({ message: "Error en el servidor al crear usuario" });
     }
 }
@@ -74,24 +74,29 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
             const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
             req.body.password = hashedPassword;
       }
-      
+      console.log(req.body);
       // Consulta con Op.ne (Operador not equal):
 
     // Verificar si se está intentando cambiar el DNI y asegurarse de que no esté duplicado
-    if (req.body.dni !== user.dni) {
-      const dniUser = await UserModel.findOne({ where: { dni: req.body.dni, idusuario: { [Op.ne]: user.idusuario } } });
-      if (dniUser) {
-        console.log(dniUser);
-        return res.status(409).json({ message: "DNI ya existe en la base de datos" });
+    if (req.body.dni ) {
+      if (req.body.dni !== user.dni) {
+        const dniUser = await UserModel.findOne({ where: { dni: req.body.dni, idusuario: { [Op.ne]: user.idusuario } } });
+        if (dniUser) {
+          console.log(dniUser);
+          return res.status(409).json({ message: "DNI ya existe en la base de datos" });
+        }
       }
     }
-    if (req.body.email !== user.mail) {
-      const mailUser = await UserModel.findOne({ where: { mail: req.body.email, idusuario: { [Op.ne]: user.idusuario } } });
-      if (mailUser) {
-        console.log(mailUser);
-        return res.status(409).json({ message: "Email ya existe en la base de datos" });
+    if (req.body.email ) {
+      if (req.body.email !== user.mail) {
+        const mailUser = await UserModel.findOne({ where: { mail: req.body.email, idusuario: { [Op.ne]: user.idusuario } } });
+        if (mailUser) {
+          console.log(mailUser);
+          return res.status(409).json({ message: "Email ya existe en la base de datos" });
+        }
       }
     }
+    
         // Actualizar el usuario con los nuevos datos
       await user.update(req.body);
       // console.log(req.body)
