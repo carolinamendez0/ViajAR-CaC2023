@@ -86,6 +86,8 @@ async function datosUsuario() {
                 nombre.value = data.nombre;
                 const apellido = document.getElementById('apellido');
                 apellido.value = data.apellido;
+                const dni = document.getElementById('dni');
+                dni.value = data.dni;
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
@@ -150,11 +152,13 @@ async function updateUsuario() {
     const nombre = document.getElementById('nombre').value;
     const apellido = document.getElementById('apellido').value;
     const email = document.getElementById('email').value;
+    const dni = document.getElementById('dni').value;
     const nuevaContraseña = document.getElementById('nueva-contraseña').value;
 
     const formData = {
         nombre: nombre,
         apellido: apellido,
+        dni:dni,
         email: email,
     };
      // Agregar nuevaContraseña al formData solo si no está vacío
@@ -213,12 +217,12 @@ async function verTodosUsu(usuarioActualId) {
                 // Limpiar cualquier dato previo en la tabla
                 table.clear();
                 // Rellenar la tabla con los datos obtenidos
-                data.filter(user => user.idusuarios !== usuarioActualId).forEach(data => {
+                data.filter(user => user.idusuario !== usuarioActualId).forEach(data => {
                     table.row.add([
                         data.nombre,
                         data.apellido,
                         data.mail,
-                        `<button class="btn btn-danger" style="text-align: center;" onclick="borrarUsuario(${data.idusuarios})"><i class="fa-solid fa-trash"></i></button>`
+                        `<button class="btn btn-danger" style="text-align: center;" onclick="borrarUsuario(${data.idusuario})"><i class="fa-solid fa-trash"></i></button>`
                     ]).draw(false);
                 });
                 

@@ -25,7 +25,7 @@ async function revisarCookie(req) {
   try {
      const cookieJWT = req.headers.cookie.split("; ").find(cookie => cookie.startsWith("jwt=")).slice(4);
     const decodificada = jwt.verify(cookieJWT, process.env.JWT_SECRET);
-    const usuarioAResvisar = await UserModel.findOne({ where: { idusuarios: decodificada.id } });
+    const usuarioAResvisar = await UserModel.findOne({ where: { idusuario: decodificada.id } });
     console.log('usu a revisar')
     console.log(usuarioAResvisar);
     if (!usuarioAResvisar) {

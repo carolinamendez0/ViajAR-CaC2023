@@ -71,10 +71,20 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
             const saltRounds = 5;
             const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
             req.body.password = hashedPassword;
-        }
+      }
+      
+      const dniUser = await UserModel.findOne({ where: { dni: req.body.dni } });
+      const Emailuser = await UserModel.findOne({ where: { mail: req.body.mail } });
+
+      if (dniUser) {
+        return res.status(404).json({ message: "Dni existente" });
+      } else if (Emailuser) {
+        return res.status(404).json({ message: "Email existente" });
+      }
 
         // Actualizar el usuario con los nuevos datos
-        await user.update(req.body);
+      await user.update(req.body);
+      console.log(req.body)
         
         res.json({"message": "Registro actualizado correctamente"}) 
     } catch (error) {
