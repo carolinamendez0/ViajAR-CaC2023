@@ -59,6 +59,44 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
+function traerFacturacion(dataUsuario) {
+    $.ajax({
+        type: "GET",
+        url: `/facturacion/${dataUsuario.idusuario}`,
+        contentType: "application/json",
+        success: function (dataf) {
+            const fetchPaquetes = async ()=>{
+                try {
+                    const table = $('#boletosTable').DataTable();
+                    table.clear();
+                    for (const item of dataf) {
+                        const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
+                        const datosRespuesta = respuesta.data;
+                        console.log(datosRespuesta.paquetes.titulo_paquete);
+                        console.log(datosRespuesta.destinos);
+                        const paquetesJson = JSON.stringify(datosRespuesta);
+                        const usuJson = JSON.stringify(dataUsuario);
+
+                        table.row.add([
+                            datosRespuesta.paquetes.titulo_paquete,
+                            datosRespuesta.destinos.titulo_destino,
+                            datosRespuesta.paquetes.descripcion_paquete,
+                            '$ ' + datosRespuesta.paquetes.precio_paquete,
+                            '20/10/2024',
+                            `<button class="btn" onclick='downloadTicket(${JSON.stringify(usuJson)},${JSON.stringify(paquetesJson)})' style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
+                        ]).draw(false);
+                    }
+                } catch (error) {
+                console.error("Error al obtener los posteos", error)
+                }
+            }
+            fetchPaquetes()
+        },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error en la solicitud:", xhr);
+            }
+    });
+}
 // Función para obtener y mostrar datos del usuario
 async function datosUsuario() {
     try {
@@ -67,11 +105,11 @@ async function datosUsuario() {
         // Decodificar el JWT para obtener los datos
         const decoded = decodeJWT(jwtCookie);
         // Obtener el idusuarios del JWT decodificado
-        const idusuarios = decoded.id;
+        const idusuario = decoded.id;
         // Realiza la petición GET al servidor
         $.ajax({
             type: "GET",
-            url: `/usuarios/${idusuarios}`,
+            url: `/usuarios/${idusuario}`,
             contentType: "application/json",
             success: function (data) {
                 // Actualizar los campos en el formulario con los datos obtenidos del servidor
@@ -84,52 +122,16 @@ async function datosUsuario() {
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
-                const usuJson = JSON.stringify(data);
-
                 if (rol === 1) {
                     document.getElementById('boletoTableContainer').style.display = 'none';
                     document.getElementById('vistaAdmin').style.display = 'block';
                     document.getElementById('usuariosTableContainer').style.display = 'block';
                     document.getElementById('comentTableContainer').style.display = 'block';
-                    verTodosUsu(idusuarios)
+                    verTodosUsu(idusuario)
                 }
                 else {
-                    $.ajax({
-                        type: "GET",
-                        url: `/facturacion/${idusuarios}`,
-                        contentType: "application/json",
-                        success: function (dataf) {
-                            const fetchPaquetes = async ()=>{
-                                try {
-                                    const table = $('#boletosTable').DataTable();
-                                    table.clear();
-                                    for (const item of dataf) {
-                                        const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
-                                        const datosRespuesta = respuesta.data;
-                                        console.log(datosRespuesta.paquetes.titulo_paquete);
-                                        console.log(datosRespuesta.destinos);
-                                        const paquetesJson = JSON.stringify(datosRespuesta);
-
-                                        table.row.add([
-                                            datosRespuesta.paquetes.titulo_paquete,
-                                            datosRespuesta.destinos.titulo_destino,
-                                            datosRespuesta.paquetes.descripcion_paquete,
-                                            '$ ' + datosRespuesta.paquetes.precio_paquete,
-                                            '20/10/2024',
-                                            `<button class="btn" onclick='downloadTicket(${JSON.stringify(usuJson)},${JSON.stringify(paquetesJson)})' style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
-                                        ]).draw(false);
-                                    }
-                                } catch (error) {
-                                console.error("Error al obtener los posteos", error)
-                                }
-                            }
-                            fetchPaquetes()
-                        },
-                            error: function (xhr, textStatus, errorThrown) {
-                                console.error("Error en la solicitud:", xhr);
-                            }
-                    });
-                
+                   
+                traerFacturacion(data)
 
                 }
             },
