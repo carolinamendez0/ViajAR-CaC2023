@@ -8,6 +8,9 @@ $(document).ready(function() {
             apellido: {
                 required: true
             },
+            dni: {
+                required: true,
+            },
             email: {
                 required: true,
                 email: true
@@ -19,6 +22,7 @@ $(document).ready(function() {
         messages: {
             nombre: "Por favor, ingrese nombre",
             apellido: "Por favor, ingrese apellido",
+            dni:"Por favor, ingrese su DNI",
             email: {
                 required: "Por favor, ingrese su correo electrónico",
                 email: "Por favor, ingrese un correo electrónico válido"
@@ -31,13 +35,17 @@ $(document).ready(function() {
             $("#password-error").text("");
             $("#nombre-error").text("");
             $("#apellido-error").text("");
+            $("#dni-error").text("");
+
 
             // Obtén los datos del formulario
             var formData = {
                 mail: $("input[name='email']").val(),
                 password: $("input[name='password']").val(),
                 nombre: $("input[name='nombre']").val(),
-                apellido: $("input[name='apellido']").val()
+                apellido: $("input[name='apellido']").val(),
+                dni: $("input[name='dni']").val()
+
             };
 
             // Realiza la petición POST al servidor
@@ -57,7 +65,7 @@ $(document).ready(function() {
                   console.error("Error en la solicitud:", xhr);
                     if (xhr.status === 404) {
                       // alert("El correo electrónico ingresado ya existe. Por favor, ingrese otro correo.");
-                     $("#email-error").text("El correo electrónico ya está registrado");
+                     $("#dni-error").text("El DNI ya está registrado");
                     } else {
                         // Maneja otros errores posibles
                         alert("Error en el registro. Por favor, inténtelo de nuevo.");

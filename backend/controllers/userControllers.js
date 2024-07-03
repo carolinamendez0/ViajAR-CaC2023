@@ -31,23 +31,23 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
 }
   const crearUnUsuario= async (req,res)=>{
     try {
-      const user = await UserModel.findOne({ where: { mail: req.body.mail } });
-      console.log(user)
+      const user = await UserModel.findOne({ where: { dni: req.body.dni } });
+      console.log(req.body)
         if (user) {
-        return res.status(404).json({ message: "Email existente" });
+        return res.status(404).json({ message: "Dni existente" });
       }
-      
-      // Asignar valor por defecto a superUsu si no está presente en el cuerpo de la solicitud
-    const { superUsu = 0, nombre, apellido, mail, password } = req.body;
-      
     if (req.body.password ) {
             const saltRounds = 5;
             const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
             req.body.password = hashedPassword;
-        }
+      }
+      console.log(req.body.password)
+    // Asignar valor por defecto a superUsu si no está presente en el cuerpo de la solicitud
+    const { superUsu = 0, nombre, apellido,dni, mail, password } = req.body;
     const nuevoUsuario = await UserModel.create({
       nombre,
       apellido,
+      dni,
       mail,
       password,
       superUsu
@@ -61,7 +61,7 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
 }
   const actualizarUsuario= async (req,res)=>{
     try {
-        const user = await UserModel.findOne({ where: { idusuarios: req.params.id } });
+        const user = await UserModel.findOne({ where: { idusuario: req.params.id } });
         if (!user) {
             return res.status(404).json({ message: "Usuario no encontrado" });
         }
@@ -74,8 +74,7 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
 
         // Actualizar el usuario con los nuevos datos
         await user.update(req.body);
-        console.log(req.body);
-
+        
         res.json({"message": "Registro actualizado correctamente"}) 
     } catch (error) {
         res.json({message:error.message}) 
@@ -83,7 +82,7 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
 }
   const borrarUsuario= async (req,res)=>{
     try {
-        const  user = await  UserModel.destroy({where :{idusuarios:req.params.id}})
+        const  user = await  UserModel.destroy({where :{idusuario:req.params.id}})
         res.json({"message": "usuario Borrado correctamente"}) 
     } catch (error) {
         res.json({message:error.message}) 
@@ -106,7 +105,7 @@ const Login = async (req, res) => {
     }
 
     const token = jwt.sign(
-      { id: userFound.idusuarios, email: userFound.email, rol: userFound.superUsu },
+      { id: userFound.idusuario,dni:userFound.dni, email: userFound.email, rol: userFound.superUsu },
       process.env.JWT_SECRET,
       { expiresIn: '1h' }
     );

@@ -18,7 +18,7 @@ const UsuarioModel = db.define ("usuarios",{
     type: DataTypes.STRING(45),
     allowNull: false
   },
-  apellido: {
+  dni: {
     type: DataTypes.INTEGER(8),
     allowNull: false,
     unique: true // Asegura que eL DNI
