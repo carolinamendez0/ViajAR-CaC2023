@@ -122,17 +122,16 @@ async function datosUsuario() {
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
-                if (rol === 1) {
+                if (rol === 1 || rol === 2 ) {
                     document.getElementById('boletoTableContainer').style.display = 'none';
                     document.getElementById('vistaAdmin').style.display = 'block';
                     document.getElementById('usuariosTableContainer').style.display = 'block';
                     document.getElementById('comentTableContainer').style.display = 'block';
                     verTodosUsu(idusuario)
                 }
-                else {
+                else if(rol === 0){
                    
                 traerFacturacion(data)
-
                 }
             },
             error: function (xhr, textStatus, errorThrown) {
