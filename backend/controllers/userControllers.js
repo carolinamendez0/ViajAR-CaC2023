@@ -32,9 +32,10 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
   const crearUnUsuario= async (req,res)=>{
     try {
       const user = await UserModel.findOne({ where: { dni: req.body.dni } });
-      console.log(req.body)
-        if (user) {
-        return res.status(404).json({ message: "Dni existente" });
+      const Emailuser = await UserModel.findOne({ where: { mail: req.body.mail } });
+
+      if (user || Emailuser) {
+        return res.status(404).json({ message: "Usuario existente" });
       }
     if (req.body.password ) {
             const saltRounds = 5;

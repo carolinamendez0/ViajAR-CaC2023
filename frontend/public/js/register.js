@@ -65,7 +65,9 @@ $(document).ready(function() {
                   console.error("Error en la solicitud:", xhr);
                     if (xhr.status === 404) {
                       // alert("El correo electrónico ingresado ya existe. Por favor, ingrese otro correo.");
-                     $("#dni-error").text("El DNI ya está registrado");
+                        $("#dni-error").text("El usuario ya está registrado");
+                     $("#email-error").text("El usuario ya está registrado");
+                        
                     } else {
                         // Maneja otros errores posibles
                         alert("Error en el registro. Por favor, inténtelo de nuevo.");
