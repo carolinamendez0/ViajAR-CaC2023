@@ -74,7 +74,6 @@ $(document).ready(function () {
             ocultarCargando();
 
                 // Maneja la respuesta del servidor
-                console.log("Respuesta del servidor:", data);
                 const popup = document.querySelector('#popup');
                 popup.style.display = 'block'; // Muestra el popup
 
