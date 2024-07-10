@@ -9,6 +9,10 @@ const paquetesRouter = require("./routes/paquetesRouter.js")
 const usuariosRouter = require("./routes/userRouter.js")
 const comentarioRouter = require("./routes/comentarioRouter.js")
 const facturacionRouter = require("./routes/facturacionRouter.js")
+const paquetesDestinosRouter = require("./routes/paquetesDestinosRoutes.js")
+const destonosRouter = require("./routes/destinosRouter.js")
+
+
 const pdfRouter = require("./routes/pdfRouter.js")
 
 
@@ -26,7 +30,14 @@ app.use("/paquetes", paquetesRouter)
 app.use ("/usuarios",usuariosRouter)
 app.use("/comentarios", comentarioRouter)
 app.use("/facturacion", facturacionRouter)
-app.use ("/pdf", pdfRouter)
+app.use("/pdf", pdfRouter)
+app.use("/paquetesDestinos", paquetesDestinosRouter)
+app.use("/destinos", destonosRouter)
+
+
+
+
+
 
 
 

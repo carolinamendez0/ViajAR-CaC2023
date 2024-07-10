@@ -23,12 +23,17 @@ async function datosUsuario() {
                 const email = document.getElementById('email');
                 email.value = data.mail;
                 const rol = data.superUsu;
-                if (rol === 1 || rol === 2 ) {
+                if (rol === 1 || rol === 2) {
                     document.getElementById('boletoTableContainer').style.display = 'none';
                     document.getElementById('vistaAdmin').style.display = 'block';
-                    document.getElementById('usuariosTableContainer').style.display = 'block';
-                    document.getElementById('comentTableContainer').style.display = 'block';
+                    // Cargar vistas parciales
+                    $('#usuariosView').load('../views/partial/usuariosTable.html');
+                    $('#comentView').load('../views/partial/comentariosTable.html');
+                    $('#paquetesView').load('../views/partial/paquetesTable.html');
+                    $('#destinosView').load('../views/partial/destinosTable.html');
                     verTodosUsu(idusuario)
+                    verTodosLosPaquetes()
+                    verTodosLosDestinos()
                 }
                 else if(rol === 0){
                 traerFacturacion(data)
@@ -54,7 +59,7 @@ async function updateUsuario() {
         nombre: nombre,
         apellido: apellido,
         dni:dni,
-        email: email,
+        mail: email
     };
      // Agregar nuevaContraseña al formData solo si no está vacío
     if (nuevaContraseña.trim() !== '') {
@@ -85,6 +90,69 @@ async function updateUsuario() {
         // Por ejemplo:
         // $("#error-message").text('Error al actualizar usuario: ' + error.message);
     }
+}
+
+async function postUsuario() {
+                const nombre = document.querySelector('#nombrePopUp').value;
+                const apellido = document.querySelector('#apellidoPopUp').value;
+                const dni = document.querySelector('#dniPopUp').value;
+                const email = document.querySelector('#emailPopUp').value;
+                const password = document.querySelector('#passwordPopUp').value;
+    
+                
+                const formData = {
+                nombre: nombre,
+                apellido: apellido,
+                dni: dni,
+                mail: email,
+                password:password
+                };
+                console.log(formData);
+    // Realiza la petición POST al servidor
+            $.ajax({
+                type: "POST",
+                url: "/usuarios/",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function(data) {
+                    // Maneja la respuesta del servidor
+                    console.log("Respuesta del servidor:", data);
+                    alert('usuario Creado');
+                    location.reload(); // Recargar la página actual
+                },
+              error: function (xhr, textStatus, errorThrown) {
+                  console.error("Error en la solicitud:", xhr);
+                  if (xhr.status === 404) {
+                      console.log(textStatus);
+                      alert(textStatus);
+                      // alert("El correo electrónico ingresado ya existe. Por favor, ingrese otro correo.");
+                    $("#dniPopUp-error").text("El usuario ya está registrado");
+                     $("#emailPopUp-error").text("El usuario ya está registrado");
+                        
+                    } else {
+                        // Maneja otros errores posibles
+                        alert("Error en el registro. Por favor, inténtelo de nuevo.");
+                    }
+                }
+            });
+}
+function crearUsuario(){
+     fetch('../views/popUpUsuario.html')
+            .then(response => response.text())
+            .then(html => {
+                // Insertar el contenido del popup en el DOM
+                document.body.insertAdjacentHTML('beforeend', html);
+                
+                const titulo = document.getElementById('accionForm');
+                titulo.textContent = 'Crear Usuario';
+                 var accionBtn = document.getElementById('accionBtn');
+                accionBtn.textContent = 'Crear';
+                accionBtn.setAttribute('onclick', 'postUsuario()');
+                // Mostrar el popup
+                const popup = document.querySelector('#popup');
+                popup.style.display = 'block';
+            })
+        .catch(error => console.error('Error al cargar popup.html', error));
 }
 
 async function enviarDatos(formData) {
@@ -156,7 +224,7 @@ async function verTodosUsu(usuarioActualId) {
                         data.apellido,
                         data.dni,
                         data.mail,
-                         `<button class="btn btn-danger" style="text-align: center;" onclick="borrarUsuario(${data.idusuario})"><i class="fa-solid fa-trash"></i></button>
+                         `<button class="btn btn-danger" style="text-align: center;" onclick="PopUpDelete('${data.nombre}', '${data.apellido}', ${data.idusuario})"><i class="fa-solid fa-trash"></i></button>
                         <button class="btn btn-sucess" style="text-align: center;" onclick="editarUsuario('${data.nombre}', '${data.apellido}', '${data.mail}', '${data.dni}', ${data.idusuario})"><i class="fa-solid fa-pen"></i></button>`
                     ]).draw(false);
                 });
@@ -198,11 +266,15 @@ async function verTodosUsu(usuarioActualId) {
 
 // Función para borrar un usuario
 function borrarUsuario(userId) {
+
+    const idUsuario = document.querySelector('#idUsuarioDelete').value;
+    console.log(idUsuario);
     $.ajax({
         type: "DELETE",
-        url: `/usuarios/${userId}`,
+        url: `/usuarios/${idUsuario}`,
         success: function () {
             alert('Usuario borrado exitosamente');
+            location.reload(); // Recargar la página actual
             datosUsuario(); // Actualizar la tabla después de borrar el usuario
         },
         error: function (xhr, textStatus, errorThrown) {
@@ -226,7 +298,13 @@ function editarUsuario(nombre,apellido,email,dni,id) {
                 document.querySelector('#dniPopUp').value = dni;
                 document.querySelector('#emailPopUp').value = email;
                 document.querySelector('#idUsuarioPopUp').value = id;
+                const titulo = document.getElementById('accionForm');
+                titulo.textContent = 'Editar Usuario';
+                var accionBtn = document.getElementById('accionBtn');
+                accionBtn.textContent = 'Guardar';
+                accionBtn.setAttribute('onclick', 'updateUsuarioFromPopup()');
 
+                updateUsuarioFromPopup
                 // Mostrar el popup
                 const popup = document.querySelector('#popup');
                 popup.style.display = 'block';

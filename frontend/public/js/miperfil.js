@@ -1,11 +1,48 @@
-   $(document).ready(function() {
-    $('#usuariosTable').DataTable({
+$(document).ready(function () {
+       $('#usuariosTable').DataTable({
         columnDefs: [
             { orderable: false, targets: -1 } // Deshabilitar el sorting en la última columna (Acciones)
         ]
     });
-        datosUsuario(); // Cargar datos del usuario al iniciar
-   });
+    // Evento para cambiar de pestañas
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href"); // Obtener el id del tab activo
+        $(target).siblings('.tab-pane').hide(); // Ocultar todas las tab panes
+        $(target).show(); // Mostrar solo el tab pane activo
+        
+        // Cargar la vista parcial si no está cargada
+            var partialPath = '';
+            switch (target) {
+                case '#usuarios':
+                    view='usuariosView'
+                    partialPath = '../views/partial/usuariosTable.html';
+                    break;
+                case '#comentarios':
+                    view:'comentView'
+                    partialPath = '../views/partial/comentariosTable.html';
+                    break;
+                case '#paquetes':
+                    view='paquetesView'
+                    partialPath = '../views/partial/paquetesTable.html';
+                    break;
+                case '#destinos':
+                    view='destinosView'
+                    partialPath = '../views/partial/destinosTable.html';
+                    break;
+            }
+            if (partialPath !== '') {
+                $(view).load(partialPath, function (response, status, xhr) {
+                    if (status == "error") {
+                        var msg = "Sorry but there was an error: ";
+                        alert(msg + xhr.status + " " + xhr.statusText);
+                    }
+                });
+            }
+    });
+
+    // Llama a la función datosUsuario cuando la página esté completamente cargada
+    datosUsuario();
+});
 
 
 async function downloadTicket(usuJson,paquetesjson) {
@@ -46,7 +83,6 @@ async function downloadTicket(usuJson,paquetesjson) {
         console.error('Error generating ticket:', error);
     }
 }
-
 
    function closePopup() {
         const popup = document.querySelector('#popup');
@@ -110,6 +146,73 @@ function traerFacturacion(dataUsuario) {
     });
 }
 
+// Función para borrar un usuario
+function PopUpDelete(nombre,apellido,id) {
+
+   fetch('../views/popUp.html')
+            .then(response => response.text())
+            .then(html => {
+                // Insertar el contenido del popup en el DOM
+                document.body.insertAdjacentHTML('beforeend', html);
+                 const nom = document.getElementById('nombreDelete');
+                nom.textContent = nombre + ' ' + apellido;
+                // document.querySelector('#nombreDelete').value = nombre;
+                // document.querySelector('#apellidoDelete').value = apellido;
+                document.querySelector('#idUsuarioDelete').value = id;
+                // Mostrar el popup
+                const popup = document.querySelector('#popup');
+                popup.style.display = 'block';
+            })
+        .catch(error => console.error('Error al cargar popup.html', error));
+  
+}
+
+// Función para borrar un Paquete
+function PopUpDeletePaquete(titulo,id) {
+   fetch('../views/popUp.html')
+            .then(response => response.text())
+            .then(html => {
+                // Insertar el contenido del popup en el DOM
+                document.body.insertAdjacentHTML('beforeend', html);
+                const tituloAction = document.getElementById('accionPopUp');
+                tituloAction.textContent = 'Esta seguro de Borrar Paquete';
+                 const nom = document.getElementById('nombreDelete');
+                nom.textContent = titulo + ' ' + descripcion;
+                document.querySelector('#idUsuarioDelete').value = id;
+                // Mostrar el popup
+                const accionBtn = document.getElementById('accionBtn');
+                accionBtn.textContent = 'Si';
+                accionBtn.setAttribute('onclick', 'DeletePaquete()');
+                const popup = document.querySelector('#popup');
+                popup.style.display = 'block';
+            })
+        .catch(error => console.error('Error al cargar popup.html', error));
+  
+}
+
+// Función para borrar un destino
+function PopUpDeleteDestino(titulo,ciudad,provincia,pais,id) {
+   fetch('../views/popUp.html')
+            .then(response => response.text())
+            .then(html => {
+                // Insertar el contenido del popup en el DOM
+                document.body.insertAdjacentHTML('beforeend', html);
+                const tituloAction = document.getElementById('accionPopUp');
+                tituloAction.textContent = 'Esta seguro de Borrar el destino?';
+                 const nom = document.getElementById('nombreDelete');
+                nom.textContent = titulo + ' - ' + ciudad + ' , ' + provincia + ' , ' + pais;
+                document.querySelector('#idUsuarioDelete').value = id;
+                // Mostrar el popup
+                const accionBtn = document.getElementById('accionBtn');
+                accionBtn.textContent = 'Si';
+                accionBtn.setAttribute('onclick', 'DeleteDestino()');
+                const popup = document.querySelector('#popup');
+                popup.style.display = 'block';
+            })
+        .catch(error => console.error('Error al cargar popup.html', error));
+  
+}
+
 // Evento que se dispara al cargar la página
 window.addEventListener("load", function() {
             // icono para mostrar contraseña
@@ -139,7 +242,9 @@ window.addEventListener("load", function() {
 
             })
 
-
+    // if ($.fn.DataTable.isDataTable('#usuariosTable')) {
+    //     // DataTable ya está inicializado, destruir la instancia existente
+    //     $('#usuariosTable').DataTable().destroy();
+    // }
+    
 });
-
- 

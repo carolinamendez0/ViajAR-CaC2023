@@ -1,6 +1,12 @@
 // Evento que se dispara al cargar la página
 window.addEventListener("load", function () {
-    updateNav(); // Actualiza la barra de navegación según el estado de autenticación
+$(function() {
+        $('#nav-bar-container').load('../views/partial/nav-bar.html', function() {
+            updateNav(); // Llamar a updateNav() después de cargar el contenido
+        });
+    });
+
+    // updateNav(); // Actualiza la barra de navegación según el estado de autenticación
 
         var perfilDropdown = document.getElementById("perfilDropdown");
 
@@ -39,7 +45,6 @@ window.addEventListener("load", function () {
 // Función para actualizar la barra de navegación
 function updateNav() {
     const isLoggedIn = isAuthenticated(); // Verifica si el usuario está autenticado
-
     const navItem = document.querySelector('.nav-item-right');
     if (isLoggedIn) {
         // Usuario autenticado: Mostrar menú desplegable con opciones de perfil

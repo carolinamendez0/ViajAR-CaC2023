@@ -3,65 +3,57 @@ const db = require ("../data/bd.js")
 const {DataTypes} = require ("sequelize")
 
 const DestinosModel = db.define ("destinos",{
-    iddestino: {
+ iddestino: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
     allowNull: false
   },
-  titulo_destino: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    collate: 'utf8mb3_bin'
-  },
-  descripcion_destino: {
-    type: DataTypes.STRING(350),
-    allowNull: true,
-    defaultValue: null,
-    charset: 'utf8mb3'
-  },
-  region_destino: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    charset: 'utf8mb3'
-  },
-    ciudad: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    charset: 'utf8mb3'
+  ciudad: {
+    type: DataTypes.STRING(255),
+    allowNull: false
   },
   provincia: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    charset: 'utf8mb3'
+    type: DataTypes.STRING(255),
+    allowNull: true
   },
-    pais: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
-    charset: 'utf8mb3'
+  pais: {
+    type: DataTypes.STRING(255),
+    allowNull: false
+  },
+  descripcion_destino: {
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+  region_destino: {
+    type: DataTypes.STRING(255),
+    allowNull: true
+  },
+  titulo_destino: {
+    type: DataTypes.STRING(255),
+    allowNull: true
   },
   img_destino: {
-    type: DataTypes.STRING(150),
-    allowNull: true,
-    defaultValue: null,
-    charset: 'utf8mb3'
+    type: DataTypes.STRING(255),
+    allowNull: true
   },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: true,
     defaultValue: null,
-    field: 'createdAt' // Esta opción indica a Sequelize que use 'created_at' en lugar de 'createdAt'
+    field: 'createdAt' // Nombre exacto del campo en la base de datos
   },
   updatedAt: {
     type: DataTypes.DATE,
     allowNull: true,
     defaultValue: null,
-    field: 'updatedAt' // Esta opción indica a Sequelize que use 'updated_at' en lugar de 'updatedAt'
+    field: 'updatedAt' // Nombre exacto del campo en la base de datos
+
   }
 }, {
   tableName: 'destinos',
-  timestamps: true, // Esto gestionará automáticamente los campos createdAt y updatedAt
-  underscored: true // Si tus nombres de columnas tienen guiones bajos, esto ayudará a que sequelize los maneje correctamente
+  timestamps: true,
+  underscored: true
 });
 
 module.exports = DestinosModel

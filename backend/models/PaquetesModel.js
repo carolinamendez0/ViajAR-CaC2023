@@ -2,6 +2,56 @@ const db = require ("../data/bd.js")
 
 const {DataTypes} = require ("sequelize")
 
+// const PaquetesModel = db.define('paquetes', {
+//   idpaquetes: {
+//     type: DataTypes.INTEGER,
+//     autoIncrement: true,
+//     primaryKey: true,
+//     allowNull: false
+//   },
+//   titulo_paquete: {
+//     type: DataTypes.STRING(45),
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   descripcion_paquete: {
+//     type: DataTypes.STRING(350),
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   img_paquete: {
+//     type: DataTypes.STRING(150),
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   precio_paquete: {
+//     type: DataTypes.INTEGER,
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   dias_paquete: {
+//     type: DataTypes.STRING(45),
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   createdAt: {
+//     type: DataTypes.DATE,
+//     allowNull: true,
+//     defaultValue: null
+//   },
+//   updatedAt: {
+//     type: DataTypes.DATE,
+//     allowNull: true,
+//     defaultValue: null
+//   }
+// }, {
+//   tableName: 'paquetes',
+//   timestamps: true,
+//   underscored: true
+// });
+
+// module.exports = PaquetesModel;
+
 const PaquetesModel = db.define ("paquetes",{
     idpaquetes: {
     type: DataTypes.INTEGER,
@@ -50,14 +100,6 @@ const PaquetesModel = db.define ("paquetes",{
     defaultValue: null,
     field: 'updatedAt' // Esta opción indica a Sequelize que use 'updated_at' en lugar de 'updatedAt'
   },
-   id_destinos: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'destinos', // Nombre de la tabla a la que hace referencia
-      key: 'iddestino' // Campo en la tabla
-    }
-}
 }, {
   tableName: 'paquetes',
   timestamps: true, // Esto gestionará automáticamente los campos createdAt y updatedAt

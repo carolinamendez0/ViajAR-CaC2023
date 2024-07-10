@@ -58,7 +58,8 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
     console.log(nuevoUsuario)
        return res.status(201).json({ message: "Usuario creado exitosamente", usuario: nuevoUsuario });
     } catch (error) {
-        //  console.error("Error en la solicitud:", error.message);
+      //  console.error("Error en la solicitud:", error.message);
+      console.log(error)
         return res.status(500).json({ message: "Error en el servidor al crear usuario" });
     }
 }
