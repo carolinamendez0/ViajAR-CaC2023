@@ -54,6 +54,9 @@ app.get("/miperfil", authenticate.soloAdmin, (req, res) => {
 app.get('/patagonia', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/views/patagonia.html'));
 });
+app.get('/paqueteSearch', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public/views/paqueteSearch.html'));
+});
 
 app.get('/norte', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/views/norte.html'));
@@ -71,6 +74,10 @@ app.get('/login', (req, res) => {
 
 app.get('/sesion', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/public/views/session.html'));
+});
+
+app.get('/paqueteSearch', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/public/views/paqueteSearch.html'));
 });
 
 app.get('/register', (req, res) => {

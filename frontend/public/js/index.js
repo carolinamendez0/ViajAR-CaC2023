@@ -1,141 +1,81 @@
 /* DOMContentLoaded*/ //para asegurar que el script se ejecute despues que el dom haya cargado
+document.addEventListener("DOMContentLoaded", () => {
+  const regionForm = document.getElementById('regionForm');
 
-//const { default: axios } = require("axios");
+  regionForm.addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-document.addEventListener("DOMContentLoaded", ()=>{
+    const regionInput = document.getElementById('regionInput').value;
 
-  const paquetesContainer = document.querySelector("#paquetesContainer");
+    // Redirigir a paqueteSearch con la región seleccionada
+    window.location.href = `/paquetes/region/${regionInput}`;
+  });
 
-  const fetchPaquetes = async ()=>{
-
-    try {
-      const respuesta = await axios(`http://localhost:3001/paquetes`);
-      //console.log(respuesta.data);
-      const paquetes = respuesta.data;
-
-      paquetes.forEach(paquete => {
-        //creando elementos
-            const card = document.createElement("div");
-            const zoomImg = document.createElement("div");
-            const imgCard = document.createElement("div");
-            const text = document.createElement("div");
-            const rating = document.createElement("span");
-            const viajAR = document.createElement("h2");
-            const cost = document.createElement("p");
-            const cardBox = document.createElement("div");
-            const time = document.createElement("p");
-            const location = document.createElement("p");
-              
-
-        //asignar el contenido a los elementos
-        imgCard.innerHTML=`<img src="${paquete.img_paquete}">`;
-        const stars="⭐⭐⭐⭐⭐";
-        rating.textContent= stars;
-        viajAR.textContent=paquete.titulo_paquete;
-        cost.textContent = paquete.precio_paquete;
-        time.textContent = "🕓"+paquete.dias_paquete;
-        location.textContent = "✈"+paquete.destino_paquete;
-        //console.log(imgCard,rating,viajAR,cost,time,location);
-
-        //clases
-        card.classList.add("card");
-        zoomImg.classList.add("zoom-img");
-        imgCard.classList.add("img-card");
-        text.classList.add("text");
-        rating.classList.add("rating");
-        //viajAR.classList.add();
-        cost.classList.add("cost");
-        cardBox.classList.add("card-box");
-        time.classList.add("time");
-        location.classList.add("location");
+});
 
 
-        //agregar los elementos en el html
-        cardBox.appendChild(time);
-        cardBox.appendChild(location);
 
-        zoomImg.appendChild(imgCard);
-
-        text.appendChild(rating);
-        text.appendChild(viajAR);
-        text.appendChild(cost);
-        text.appendChild(cardBox);
-
-        card.appendChild(zoomImg);
-        card.appendChild(text);
-
-        paquetesContainer.appendChild(card);
-      });
-    } catch (error) {
-      console.error("Error al obtener los posteos", error)
-    }
-
-
-  }
-  fetchPaquetes();
-
-
-})
+//   const paquetesContainer = document.querySelector("#paquetesContainer");
 
 
 // Función para obtener y mostrar los paquetes
-async function mostrarPaquetes() {
-  try {
-    const response = await fetch(`${apiUrl}/viajes`);
-    if (!response.ok) {
-      throw new Error('No se pudo obtener la lista de paquetes');
-    }
-    const data = await response.json();
-    const paquetesContainer = document.getElementById('paquetesContainer');
+// async function mostrarPaquetes() {
+//   try {
+//     const response = await fetch(`${apiUrl}/viajes`);
+//     if (!response.ok) {
+//       throw new Error('No se pudo obtener la lista de paquetes');
+//     }
+//     const data = await response.json();
+//     const paquetesContainer = document.getElementById('paquetesContainer');
 
-    // Iterar sobre cada paquete y crear la estructura HTML dinámicamente
-      data.forEach(paquete => {
-      console.log(paquete);
+//     // Iterar sobre cada paquete y crear la estructura HTML dinámicamente
+//       data.forEach(paquete => {
+//       console.log(paquete);
 
-      const card = document.createElement('div');
-      card.classList.add('card');
+//       const card = document.createElement('div');
+//       card.classList.add('card');
 
-      const imgDiv = document.createElement('div');
-      imgDiv.classList.add('zoom-img');
-      const imgCardDiv = document.createElement('div');
-      imgCardDiv.classList.add('img-card');
-      const img = document.createElement('img');
-      img.src = paquete.img_paquete;
-      img.alt = paquete.titulo_paquete;
-      imgCardDiv.appendChild(img);
-      imgDiv.appendChild(imgCardDiv);
-      card.appendChild(imgDiv);
-      const textDiv = document.createElement('div');
-      textDiv.classList.add('text');
-      const ratingSpan = document.createElement('span');
-      ratingSpan.classList.add('rating');
-      const h2 = document.createElement('h2');
-      h2.textContent = paquete.titulo_paquete;
-      const costP = document.createElement('p');
-      costP.classList.add('cost');
-      costP.textContent = `$${paquete.precio_paquete} / Por Persona`;
-      const cardBoxDiv = document.createElement('div');
-      cardBoxDiv.classList.add('card-box');
-      const timeP = document.createElement('p');
-      timeP.classList.add('time');
-      timeP.textContent = ` ${paquete.dias_paquete}`;
-      const locationP = document.createElement('p');
-      locationP.classList.add('location');
-      locationP.textContent = `${paquete.destino_paquete}`;
-      cardBoxDiv.appendChild(timeP);
-      cardBoxDiv.appendChild(locationP);
-      textDiv.appendChild(ratingSpan);
-      textDiv.appendChild(h2);
-      textDiv.appendChild(costP);
-      textDiv.appendChild(cardBoxDiv);
-      card.appendChild(textDiv);
-      paquetesContainer.appendChild(card);
-    });
+//       const imgDiv = document.createElement('div');
+//       imgDiv.classList.add('zoom-img');
+//       const imgCardDiv = document.createElement('div');
+//       imgCardDiv.classList.add('img-card');
+//       const img = document.createElement('img');
+//       img.src = paquete.img_paquete;
+//       img.alt = paquete.titulo_paquete;
+//       imgCardDiv.appendChild(img);
+//       imgDiv.appendChild(imgCardDiv);
+//       card.appendChild(imgDiv);
+//       const textDiv = document.createElement('div');
+//       textDiv.classList.add('text');
+//       const ratingSpan = document.createElement('span');
+//       ratingSpan.classList.add('rating');
+//       const h2 = document.createElement('h2');
+//       h2.textContent = paquete.titulo_paquete;
+//       const costP = document.createElement('p');
+//       costP.classList.add('cost');
+//       costP.textContent = `$${paquete.precio_paquete} / Por Persona`;
+//       const cardBoxDiv = document.createElement('div');
+//       cardBoxDiv.classList.add('card-box');
+//       const timeP = document.createElement('p');
+//       timeP.classList.add('time');
+//       timeP.textContent = ` ${paquete.dias_paquete}`;
+//       const locationP = document.createElement('p');
+//       locationP.classList.add('location');
+//       locationP.textContent = `${paquete.destino_paquete}`;
+//       cardBoxDiv.appendChild(timeP);
+//       cardBoxDiv.appendChild(locationP);
+//       textDiv.appendChild(ratingSpan);
+//       textDiv.appendChild(h2);
+//       textDiv.appendChild(costP);
+//       textDiv.appendChild(cardBoxDiv);
+//       card.appendChild(textDiv);
+//       paquetesContainer.appendChild(card);
+//     });
 
-  } catch (error) {
-    console.error('Error al obtener los paquetes:', error);
-  }
-}
+//   } catch (error) {
+//     console.error('Error al obtener los paquetes:', error);
+//   }
+// }
 
-// Llamar a la función para mostrar los paquetes al cargar la página
-mostrarPaquetes();
+// // Llamar a la función para mostrar los paquetes al cargar la página
+// mostrarPaquetes();

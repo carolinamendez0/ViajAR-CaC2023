@@ -80,7 +80,7 @@ const actualizarPaquete= async (req,res)=>{
     }
 }
 
-  const borrarPaquete= async (req,res)=>{
+const borrarPaquete= async (req,res)=>{
       try {
           const paquete = await PaquetesModel.destroy({ where: { idpaquetes: req.params.id } })
           console.log('paq')
@@ -91,4 +91,49 @@ const actualizarPaquete= async (req,res)=>{
     }
 }
 
-module.exports = { traerPaquetes, traerunPaquete, actualizarPaquete ,crearPaquete,borrarPaquete}
+const DestinosModel = require('../models/DestinosModel');
+const PaquetesDestinosModel = require('../models/PaquetesDestinosModel');
+
+const obtenerPaquetesPorRegion = async (req, res) => {
+  try {
+    const { region } = req.params;
+
+    // Paso 1: Obtener los destinos por región
+    const destinos = await DestinosModel.findAll({
+      where: { region_destino: region }
+    });
+
+    if (!destinos.length) {
+      return res.status(404).json({ message: "No se encontraron destinos para esta región." });
+    }
+
+    const destinoIds = destinos.map(destino => destino.iddestino);
+
+    // Paso 2: Obtener los paquetes_destinos por ids de destino
+    const paquetesDestinos = await PaquetesDestinosModel.findAll({
+      where: { iddestino: destinoIds }
+    });
+
+    if (!paquetesDestinos.length) {
+      return res.status(404).json({ message: "No se encontraron paquetes para estos destinos." });
+    }
+
+    const paqueteIds = paquetesDestinos.map(paqueteDestino => paqueteDestino.idpaquete);
+
+    // Paso 3: Obtener los paquetes por ids de paquete
+    const paquetes = await PaquetesModel.findAll({
+      where: { idpaquetes: paqueteIds }
+    });
+
+    if (!paquetes.length) {
+      return res.status(404).json({ message: "No se encontraron paquetes." });
+    }
+
+    res.json(paquetes);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+module.exports = { traerPaquetes, traerunPaquete, actualizarPaquete ,crearPaquete,borrarPaquete , obtenerPaquetesPorRegion}
