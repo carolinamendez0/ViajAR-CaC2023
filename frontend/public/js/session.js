@@ -1,3 +1,5 @@
+
+
 $(function () {
    
     // Validación del formulario de inicio de sesión
@@ -42,6 +44,9 @@ $(function () {
               },
               body: JSON.stringify(formData)
             });
+
+
+            
 
             const data = await response.json();
             if (data.status === 'ok') {
