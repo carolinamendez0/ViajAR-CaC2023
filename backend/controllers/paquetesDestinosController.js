@@ -97,6 +97,8 @@ const crearPaqueteDestino = async (req, res) => {
     console.error("Error al crear el paquete destino:", error);
   }
 };
+
+
 // DELETE 
 const eliminarPaqueteDestino = async (req, res) => {
   try {

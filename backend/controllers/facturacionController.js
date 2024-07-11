@@ -3,6 +3,8 @@ const router = express.Router();
 require('dotenv').config();
 
 const FacturacionModel = require("../models/FacturacionModel.js")
+const PaquetesModel = require ("../models/PaquetesModel.js")
+const DestinosModel = require("../models/DestinosModel.js")
 router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud como JSON
 
 
@@ -33,16 +35,28 @@ const traerUnaFacturacion = async (req, res) => {
 
   const crearUnaFacturacion= async (req,res)=>{
     try {
-      // Asignar valor por defecto a superUsu si no está presente en el cuerpo de la solicitud
-    // const { nombre, apellido, mail, comentario } = req.body;
-    // const nuevoFacturacion = await FacturacionModel.create({
-    //   nombre,
-    //   apellido,
-    //   mail,
-    //   comentario
-    // });
-    // console.log(nuevoFacturacion)
-    //    return res.status(201).json({ message: "Facturacion creado exitosamente", comentario: nuevoFacturacion });
+    const { idUsuario, idPaquete } = req.body;
+    
+    // Validación básica
+    if (!idUsuario || !idPaquete) {
+      return res.status(400).json({ message: "idUsuario y idPaquete son requeridos" });
+    }
+    
+    // Verificar si el paquete y el destino existen
+    const usuario = await PaquetesModel.findByPk(idUsuario);
+    const paquete = await DestinosModel.findByPk(idPaquete);
+
+    if (!paquete || !destino) {
+      return res.status(404).json({ message: "Paquete o Destino no encontrado" });
+    }
+    // Crear el nuevo registro en facturacion
+    const nuevaFacturacion = await FacturacionModel.create({
+      id_usuario: idUsuario,
+      id_paquete: idPaquete
+    });
+
+    console.log(nuevaFacturacion)
+       return res.status(201).json({ message: "Facturacion creado exitosamente", comentario: nuevaFacturacion });
     } catch (error) {
          console.error("Error en la solicitud:", error.message);
         return res.status(500).json({ message: "Error en el servidor al crear usuario" });

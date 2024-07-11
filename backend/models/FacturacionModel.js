@@ -39,4 +39,9 @@ const FacturacionModel = db.define ("facturacion",{
   }
 });
 
+// Establecer asociaciones manualmente
+FacturacionModel.belongsTo(FacturacionModel, { foreignKey: "id_usuario" });
+FacturacionModel.belongsTo(FacturacionModel, { foreignKey: "id_paquete" });
+
+
 module.exports = FacturacionModel
