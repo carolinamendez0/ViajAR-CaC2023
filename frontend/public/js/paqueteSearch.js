@@ -26,7 +26,7 @@ const fetchPaquetes = async (region) => {
           // const stars = "⭐⭐⭐⭐⭐";
           // rating.textContent = stars;
           viajAR.textContent = paquete.titulo_paquete;
-          cost.textContent = paquete.precio_paquete;
+          cost.textContent = "🏷️ $" + paquete.precio_paquete;
           time.textContent = "🕓" + paquete.dias_paquete;
           location.textContent = "✈" + paquete.titulo_destino;
 
