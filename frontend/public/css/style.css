@@ -243,7 +243,7 @@ ul {
 }
 
 /*=============================Places===============================*/
-.places-text {
+/* .places-text {
     text-align: center;
     margin-bottom: 50px;
 }
@@ -279,10 +279,10 @@ ul {
     border-top-right-radius: 8px;
     width: 100%;
     height: auto;
-}
-
+} */
+/* 
 .card img {
-    /* width: auto; */
+    width: auto;
     max-width: 100%;
     height: 500px;
     border-radius: 8px;
@@ -317,31 +317,9 @@ ul {
 .cards .cost {
     color: #4CAFAD;
     font-size: 20px;
-}
+} */
 
 /*------------Zoom in Photos--------------*/
-.zoom-img {
-    float: left;
-    position: relative;
-    width: 100%;
-    height: 320px;
-    overflow: hidden;
-}
-
-.zoom-img .img-card {
-    position: absolute;
-    overflow: hidden;
-}
-
-.img-card img {
-    -webkit-transition: 0.8s ease;
-    transition: 0.8s ease;
-}
-
-.card:hover .zoom-img img {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
-}
 
 /*=========================About Us=========================*/
 .about {

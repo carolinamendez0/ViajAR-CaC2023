@@ -12,8 +12,10 @@ const fetchPaquetes = async (region) => {
         paquetes.paquetesConDescripcion.forEach(paquete => {
           // Aquí va tu lógica para crear y añadir los elementos de las cards
           const card = document.createElement("div");
+          const cardBody = document.createElement("div");
           const zoomImg = document.createElement("div");
           const imgCard = document.createElement("div");
+          imgCard.classList.add("card-img-top");          
           const text = document.createElement("div");
           const rating = document.createElement("span");
           const viajAR = document.createElement("h2");
@@ -21,6 +23,8 @@ const fetchPaquetes = async (region) => {
           const cardBox = document.createElement("div");
           const time = document.createElement("p");
           const location = document.createElement("p");
+          text.classList.add("card-title");
+
           // asignar el contenido a los elementos
           imgCard.innerHTML = `<img src="${paquete.img_paquete}">`;
           // const stars = "⭐⭐⭐⭐⭐";
@@ -31,15 +35,17 @@ const fetchPaquetes = async (region) => {
           location.textContent = "✈" + paquete.titulo_destino;
 
           // clases
-          card.classList.add("card-body");
+          card.classList.add("card");
+          cardBody.classList.add("card-body");
           zoomImg.classList.add("zoom-img");
-          imgCard.classList.add("img-card");
+          // imgCard.classList.add("img-card");
           text.classList.add("text");
           rating.classList.add("rating");
           cost.classList.add("cost");
           cardBox.classList.add("card-box");
           time.classList.add("time");
           location.classList.add("location");
+
           // Crear botón de comprar
           const comprarBtn = document.createElement("button");
           comprarBtn.textContent = "Comprar";
@@ -59,16 +65,17 @@ const fetchPaquetes = async (region) => {
           cardBox.appendChild(time);
           cardBox.appendChild(location);
 
-          zoomImg.appendChild(imgCard);
           zoomImg.appendChild(comprarBtn);
+          zoomImg.appendChild(imgCard);
 
           text.appendChild(rating);
           text.appendChild(viajAR);
           text.appendChild(cost);
           text.appendChild(cardBox);
-
           card.appendChild(zoomImg);
-          card.appendChild(text);
+          card.appendChild(cardBody);
+
+          cardBody.appendChild(text);
 
           document.getElementById('paquetesContainer').appendChild(card);
         });

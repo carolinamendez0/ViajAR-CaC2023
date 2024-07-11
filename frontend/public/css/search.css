@@ -1,12 +1,81 @@
+
+/* Estilos generales para el body y HTML */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+
+/* Estilos para el contenido principal */
+.main-content {
+  flex: 1; /* El contenido principal ocupará todo el espacio restante */
+  /* display: flex; */
+  /* flex-direction: column; */
+  align-items: center; /* Centrar los elementos horizontalmente */
+  justify-content: center; /* Centrar los elementos verticalmente */
+  position: relative; /* Relativo para posicionar el mensaje de no paquetes */
+}
+
+
+/* Añade más estilos para los otros círculos aquí */
+
+#noPaquete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-size: 1.5em;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1; /* Asegura que el mensaje esté sobre los círculos */
+}
+
+
 /* Contenedor de las cards */
 #paquetesContainer {
-  display: flex;
+  display: flex !important; 
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 20px; /* Espacio entre las cards */
+  padding: 20px; /* Agregar un padding al contenedor */
+  width: fit-content;
+  height: fit-content;
 }
 
 /* Estilos de las cards */
+
+.zoom-img {
+  position: relative;
+  display: inline-block; /* Asegura que el contenedor zoomImg ocupe solo el tamaño de la imagen */
+  overflow: hidden;
+  /* float: left; */
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+.card-img-top{
+  position: relative;
+  height: 100%!important;
+  width: 100% !important;
+}
+
+
+.card-img-top img {
+  object-fit: cover; /* Ajusta la imagen sin deformarla */
+  transition: transform 0.3s ease;
+  width: 100% !important;
+  height: 100% !important;
+  display: block; /* Asegura que la imagen se muestre como un bloque */
+}
+
+
 .card {
   background-color: #fff;
   border-radius: 10px;
@@ -14,35 +83,34 @@
   overflow: hidden;
   width: calc(33.333% - 40px); /* Tres columnas con espacio de 20px entre ellas */
   margin-bottom: 20px; /* Espacio debajo de cada card */
+  flex: 1 1 calc(33.333% - 40px); /* Ajusta el tamaño de la tarjeta */
+  position: relative; /* Asegura que la posición absoluta del botón funcione correctamente */
 }
 
-
-/* Ajustes para pantallas más pequeñas */
-@media (max-width: 1200px) {
-  .card {
-    width: calc(50% - 40px); /* Dos columnas con espacio de 20px entre ellas */
-  }
+.card-body {
+  flex: 1 1 0;
 }
 
-@media (max-width: 768px) {
-  .card {
-    width: calc(100% - 40px); /* Una columna */
-  }
-}
-
-.zoom-img {
-  position: relative;
+.zoom-img .img-card {
+  position: absolute;
   overflow: hidden;
 }
 
-.img-card img {
-  width: 100%;
-  height: auto;
-  transition: transform 0.3s ease;
-}
-.img-card{
+.card-img-top {
   position: relative;
+  height: 200px; /* Altura deseada para todas las imágenes */
+  overflow: hidden;
 }
+
+.card-img-top img {
+  object-fit: cover; /* Ajusta la imagen sin deformarla */
+  transition: transform 0.3s ease;
+  width: 100%;
+  height: 100%;
+  display: block; /* Asegura que la imagen se muestre como un bloque */
+}
+
+
 
 .img-card img:hover {
   transform: scale(1.1);
@@ -60,6 +128,45 @@
   margin-bottom: 10px;
   font-size: 1.2em;
 }
+
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 1200px) {
+  .card {
+    width: calc(50% - 40px); /* Dos columnas con espacio de 20px entre ellas */
+    flex: 1 1 calc(50% - 40px); /* Ajusta el tamaño de la tarjeta */  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: calc(100% - 40px); /* Una columna */
+    flex: 1 1 calc(100% - 40px); /* Ajusta el tamaño de la tarjeta */
+  }
+}
+
+/* Estilos para el botón de comprar */
+
+.comprar-btn {
+  position: absolute;
+  bottom: 10px; /* Ajusta la posición vertical del botón */
+  left: 50%; /* Centra horizontalmente el botón */
+  transform: translateX(-50%); /* Centra horizontalmente el botón */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px; /* Ajusta el tamaño del texto según el diseño */
+  cursor: pointer;
+  display: none; /* Ocultar inicialmente */
+  z-index: 10; /* Asegura que el botón esté sobre la imagen */
+}
+
+
+.comprar-btn:hover {
+  background-color: #0056b3;
+}
+
+/* ---------------------------------- FONDO ------------------------------ */
         .area{
             background: #4e54c8;  
             background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
@@ -178,65 +285,6 @@
         }
 
 
-/* ----------------------------
-
-*/
-
-/* Estilos para el botón de comprar */
-.comprar-btn {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  font-size: 14px;
-  cursor: pointer;
-  display: none; /* Ocultar inicialmente */
-  z-index: 10; /* Asegurarse de que esté por encima de la imagen */
-}
-
-.comprar-btn:hover {
-  background-color: #0056b3;
-}
-
-
-/* Estilos generales para el body y HTML */
-html, body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Estilos para el contenido principal */
-.main-content {
-  flex: 1; /* El contenido principal ocupará todo el espacio restante */
-  /* display: flex; */
-  /* flex-direction: column; */
-  align-items: center; /* Centrar los elementos horizontalmente */
-  justify-content: center; /* Centrar los elementos verticalmente */
-  position: relative; /* Relativo para posicionar el mensaje de no paquetes */
-}
-
-
-/* Añade más estilos para los otros círculos aquí */
-
-#noPaquete {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-size: 1.5em;
-  color: #333;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 10px;
-  z-index: 1; /* Asegura que el mensaje esté sobre los círculos */
-}
 
 /* Estilos para el footer */
 .footer {
