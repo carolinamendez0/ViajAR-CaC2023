@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const regionInput = document.getElementById('regionInput').value;
 
     // Redirigir a paqueteSearch con la región seleccionada
-    // window.location.href = `/paquetes/region/${regionInput}`;
-    alert(1)
     window.location.href = `/paqueteSearch?region=${regionInput}`;
 
   });

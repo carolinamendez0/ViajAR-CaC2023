@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
     <head>
         <script src="https://kit.fontawesome.com/a5d52be292.js"
             crossorigin="anonymous"></script>
@@ -9,17 +8,32 @@
         <script src="../js/nav-bar.js"></script>
         <script src="../js/paqueteSearch.js"></script>
         <link rel="stylesheet" href="../css/search.css">
-
-        <title>Norte</title>
+        <title>Paquetes</title>
     </head>
     <body>
         <!--===========Nav Bar=================-->
         <section class="nav-bar" id="nav-bar-container">
         </section>
-        <main>
-            <div id="paquetesContainer" class="cuadriculas"></div>
-
+        <main class="main-content">
+                <div id="paquetesContainer" class="cuadriculas"></div>
             </div>
+            <div class="area" id="area" style="display: none;">
+                <ul class="circles">
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li></li>
+                    <li><li></li></li>
+                    <li><li></li></li>
+                </ul>
+                <div id="noPaquete" class="message">
+                    No existen paquetes para esta región. Próximamente habrá más.
+                </div>
+                </div>
         </main>
 
         <!--===========Footer=================-->
@@ -27,8 +41,6 @@
             <div class=" links">
                 <h3>Enlaces</h3>
                 <ul>
-                    <!-- <li>Ofertas y Descuentos</li> -->
-                    <!-- <li>Obten Beneficios Exclusivos</li> -->
                     <li> <a href="./contacto.html" class> Contáctanos</a></li>
                     <li><a href="./nosotros.html">Nosotros</a></li>
                 </ul>

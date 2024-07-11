@@ -8,7 +8,7 @@ const fetchPaquetes = async (region) => {
         console.log(paquetes)
          const paquetesContainer = document.getElementById('paquetesContainer');
         paquetesContainer.innerHTML = ''; // Limpiar contenedor antes de agregar nuevos elementos
-
+        
         paquetes.paquetesConDescripcion.forEach(paquete => {
           // Aquí va tu lógica para crear y añadir los elementos de las cards
           const card = document.createElement("div");
@@ -57,6 +57,15 @@ const fetchPaquetes = async (region) => {
 
           document.getElementById('paquetesContainer').appendChild(card);
         });
+      },
+      error: function (xhr) {
+        //  
+
+        if (xhr.status === 404) {
+          
+          // area
+                    document.getElementById('area').style.display = 'block'; // Mostrar el área de mensaje de error
+        } 
       }
     });
   } catch (error) {
