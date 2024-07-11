@@ -40,12 +40,27 @@ const fetchPaquetes = async (region) => {
           cardBox.classList.add("card-box");
           time.classList.add("time");
           location.classList.add("location");
-
+          // Crear botón de comprar
+          const comprarBtn = document.createElement("button");
+          comprarBtn.textContent = "Comprar";
+          comprarBtn.classList.add("comprar-btn");
+          comprarBtn.addEventListener("click", () => {
+            // Redirigir a la página de login (reemplazar con la URL correcta)
+            window.location.href = "/login";
+          });
+          // Mostrar botón al hacer hover sobre la imagen
+          zoomImg.addEventListener("mouseenter", () => {
+            comprarBtn.style.display = "block";
+          });
+          zoomImg.addEventListener("mouseleave", () => {
+            comprarBtn.style.display = "none";
+          });
           // agregar los elementos en el html
           cardBox.appendChild(time);
           cardBox.appendChild(location);
 
           zoomImg.appendChild(imgCard);
+          zoomImg.appendChild(comprarBtn);
 
           text.appendChild(rating);
           text.appendChild(viajAR);
