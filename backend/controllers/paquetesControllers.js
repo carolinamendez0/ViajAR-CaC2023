@@ -1,5 +1,8 @@
 const PaquetesModel = require ("../models/PaquetesModel.js")
-
+const { Op } = require('sequelize');
+const DestinosModel = require('../models/DestinosModel');
+const PaquetesDestinosModel = require('../models/PaquetesDestinosModel');
+const sequelize = require ('sequelize')
 
 /* CRUD */
 //LEER TODOS LOS PAQUETES
@@ -91,23 +94,32 @@ const borrarPaquete= async (req,res)=>{
     }
 }
 
-const DestinosModel = require('../models/DestinosModel');
-const PaquetesDestinosModel = require('../models/PaquetesDestinosModel');
 
 const obtenerPaquetesPorRegion = async (req, res) => {
   try {
     const { region } = req.params;
-
     // Paso 1: Obtener los destinos por región
     const destinos = await DestinosModel.findAll({
-      where: { region_destino: region }
+      where: sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('region_destino')),
+        'LIKE',
+        `%${region.toLowerCase()}%`
+      )
     });
 
     if (!destinos.length) {
       return res.status(404).json({ message: "No se encontraron destinos para esta región." });
     }
 
+    // const destinoIds = destinos.map(destino => destino.iddestino);
+    // const descripcion_destino = destinos.map(destino => destino.descripcion_destino);
     const destinoIds = destinos.map(destino => destino.iddestino);
+    const destinoMap = destinos.reduce((acc, destino) => {
+      acc[destino.iddestino] = destino.titulo_destino;
+      return acc;
+    }, {});
+
+    console.log(destinoMap)
 
     // Paso 2: Obtener los paquetes_destinos por ids de destino
     const paquetesDestinos = await PaquetesDestinosModel.findAll({
@@ -119,7 +131,6 @@ const obtenerPaquetesPorRegion = async (req, res) => {
     }
 
     const paqueteIds = paquetesDestinos.map(paqueteDestino => paqueteDestino.idpaquete);
-
     // Paso 3: Obtener los paquetes por ids de paquete
     const paquetes = await PaquetesModel.findAll({
       where: { idpaquetes: paqueteIds }
@@ -129,7 +140,16 @@ const obtenerPaquetesPorRegion = async (req, res) => {
       return res.status(404).json({ message: "No se encontraron paquetes." });
     }
 
-    res.json(paquetes);
+    // Combinar los paquetes con sus descripciones de destino
+    const paquetesConDescripcion = paquetes.map(paquete => {
+      const paqueteDestino = paquetesDestinos.find(pd => pd.idpaquete === paquete.idpaquetes);
+      return {
+        ...paquete.dataValues,
+        titulo_destino: destinoMap[paqueteDestino.iddestino]
+      };
+    });
+
+    res.json({paquetesConDescripcion});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

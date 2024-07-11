@@ -1,0 +1,101 @@
+/* Contenedor de las cards */
+#paquetesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px; /* Espacio entre las cards */
+}
+
+/* Estilos de las cards */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: calc(33.333% - 40px); /* Tres columnas con espacio de 20px entre ellas */
+  margin-bottom: 20px; /* Espacio debajo de cada card */
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 1200px) {
+  .card {
+    width: calc(50% - 40px); /* Dos columnas con espacio de 20px entre ellas */
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    width: calc(100% - 40px); /* Una columna */
+  }
+}
+
+.zoom-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.img-card img:hover {
+  transform: scale(1.1);
+}
+
+.text {
+  padding: 15px;
+}
+
+.rating,
+.cost,
+.card-box .time,
+.card-box .location {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}
+
+/* Contenedor de las cards */
+#paquetesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px; /* Espacio entre las cards */
+}
+
+/* Estilos de las cards */
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.zoom-img {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-card img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.img-card img:hover {
+  transform: scale(1.1);
+}
+
+.text {
+  padding: 15px;
+}
+
+.rating,
+.cost,
+.card-box .time,
+.card-box .location {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.2em;
+}

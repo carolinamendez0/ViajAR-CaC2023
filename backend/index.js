@@ -38,9 +38,6 @@ app.use("/destinos", destonosRouter)
 
 
 
-
-
-
 app.use(express.static(path.join(__dirname, '../frontend/public')));
 
 app.get('/', (req, res) => {
