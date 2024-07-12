@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const FacturacionModel = require("../models/FacturacionModel.js")
 const PaquetesModel = require ("../models/PaquetesModel.js")
-const DestinosModel = require("../models/DestinosModel.js")
+const UsuariosModel = require("../models/UserModel.js")
 router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud como JSON
 
 
@@ -35,7 +35,8 @@ const traerUnaFacturacion = async (req, res) => {
 
   const crearUnaFacturacion= async (req,res)=>{
     try {
-    const { idUsuario, idPaquete } = req.body;
+      const { idUsuario, idPaquete } = req.body;
+      console.log(req.body)
     
     // Validación básica
     if (!idUsuario || !idPaquete) {
@@ -43,10 +44,10 @@ const traerUnaFacturacion = async (req, res) => {
     }
     
     // Verificar si el paquete y el destino existen
-    const usuario = await PaquetesModel.findByPk(idUsuario);
-    const paquete = await DestinosModel.findByPk(idPaquete);
+    const usuario = await UsuariosModel.findByPk(idUsuario);
+    const paquete = await PaquetesModel.findByPk(idPaquete);
 
-    if (!paquete || !destino) {
+    if (!paquete || !usuario) {
       return res.status(404).json({ message: "Paquete o Destino no encontrado" });
     }
     // Crear el nuevo registro en facturacion
@@ -59,8 +60,17 @@ const traerUnaFacturacion = async (req, res) => {
        return res.status(201).json({ message: "Facturacion creado exitosamente", comentario: nuevaFacturacion });
     } catch (error) {
          console.error("Error en la solicitud:", error.message);
-        return res.status(500).json({ message: "Error en el servidor al crear usuario" });
+        return res.status(500).json({ message: "Error en el servidor al crear facturacion" });
     }
 }
 
-module.exports = {crearUnaFacturacion, traerFacturacion,traerUnaFacturacion}
+  const borrarFacturacion= async (req,res)=>{
+    try {
+        const facturacion = await  FacturacionModel.destroy({where :{idfacturacion:req.params.id}})
+        res.json({"message": "facturación Borrada correctamente"}) 
+    } catch (error) {
+        res.json({message:error.message}) 
+    }
+}
+
+module.exports = {crearUnaFacturacion, traerFacturacion,traerUnaFacturacion, borrarFacturacion}
