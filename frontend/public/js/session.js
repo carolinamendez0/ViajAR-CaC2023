@@ -35,7 +35,7 @@ $(function () {
             email: $("input[name='email']").val(),
             password: $("input[name='password']").val()
           };
-
+          // Verifico  el usuario 
           try {
             const response = await fetch('/usuarios/auth', {
               method: 'POST',

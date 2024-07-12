@@ -5,7 +5,6 @@ const fetchPaquetes = async (region) => {
       url: `paquetes/region/${region}`,
       contentType: "application/json",
       success: function (paquetes) {
-        console.log(paquetes)
          const paquetesContainer = document.getElementById('paquetesContainer');
         paquetesContainer.innerHTML = ''; // Limpiar contenedor antes de agregar nuevos elementos
         
@@ -24,7 +23,6 @@ const fetchPaquetes = async (region) => {
           const time = document.createElement("p");
           const location = document.createElement("p");
           text.classList.add("card-title");
-
           // asignar el contenido a los elementos
           imgCard.innerHTML = `<img src="${paquete.img_paquete}">`;
           // const stars = "⭐⭐⭐⭐⭐";
@@ -51,8 +49,26 @@ const fetchPaquetes = async (region) => {
           comprarBtn.textContent = "Comprar";
           comprarBtn.classList.add("comprar-btn");
           comprarBtn.addEventListener("click", () => {
-            // Redirigir a la página de login (reemplazar con la URL correcta)
-            window.location.href = "/login";
+            console.log(paquete.idpaquetes)
+            if (!isAuthenticated()) {
+                // Guardar la URL actual para redirigir después de iniciar sesión
+                localStorage.setItem("redirectAfterLogin", window.location.href);
+                window.location.href = "/login";
+            } else {
+              const token = document.cookie.split('; ').find(cookie => cookie.startsWith('jwt=')).slice(4);
+               const base64Url = token.split('.')[1];
+              const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+              const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+              }).join(''));
+              
+              idUsuario = JSON.parse(jsonPayload).id;
+              if (postFacturacion(idUsuario, paquete.idpaquetes)) {
+                window.location.href = "/miperfil";
+              }
+                // Lógica para procesar la compra si el usuario está autenticado
+                // alert("Compra realizada con éxito");
+              }
           });
           // Mostrar botón al hacer hover sobre la imagen
           zoomImg.addEventListener("mouseenter", () => {
@@ -103,3 +119,4 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchPaquetes(region);
   }
 });
+
