@@ -11,21 +11,6 @@ async function verTodosLosPaquetes() {
                 // Limpiar cualquier dato previo en la tabla
                 table.clear();
                 console.log(paquetes)
-
-                // Rellenar la tabla con los datos obtenidos
-                // data.forEach(data => {
-                //     table.row.add([
-                //         data.titulo_paquete,
-                //         data.descripcion_paquete,
-                //         data.img_paquete,
-                //         data.precio_paquete,
-                //         data.dias_paquete,
-                //         '', //aca el destino del paquete
-                //         // data.id_destinos,
-                //         `<button class="btn btn-danger" style="text-align: center;" onclick="PopUpDeletePaquete('${data.titulo_paquete}', '${data.descripcion_paquete}', ${data.idpaquetes})"><i class="fa-solid fa-trash"></i></button>
-                //         <button class="btn btn-sucess" style="text-align: center;" onclick="editarPaquete('${data.titulo_paquete}', '${data.descripcion_paquete}', '${data.img_paquete}', '${data.precio_paquete}','${data.dias_paquete}', ${data.idpaquetes})"><i class="fa-solid fa-pen"></i></button>`
-                //     ]).draw(false);
-                // });
                   paquetes.forEach(paquete => {
                     // Realizar una solicitud adicional para obtener los destinos de cada paquete
                     $.ajax({
@@ -66,8 +51,6 @@ async function verTodosLosPaquetes() {
     console.error('Error al obtener los datos del usuario:');
   }
 }
-
-
 // funcion para editar datos de un paquete
 function editarPaquete(titulo, descripcion, imagen, precio,dias, id) {
     fetch('../views/popUpUsuario.html')
@@ -147,6 +130,23 @@ function editarPaquete(titulo, descripcion, imagen, precio,dias, id) {
         .catch(error => console.error('Error al cargar popup.html', error));
 }
 
+// Función para editar datos de un paquete
+function traerUnPaquete(id) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            type: "GET",
+            url: `paquetes/${id}`,
+            contentType: "application/json",
+            success: function (paquete) {
+                resolve(paquete);
+            },
+            error: function (xhr, textStatus, errorThrown) {
+                console.error("Error al obtener el paquete:", xhr);
+                reject(errorThrown);
+            }
+        });
+    });
+}
 
 
 async function updatePaqueteFromPopup() {
