@@ -21,11 +21,44 @@ const traerPaquetes= async (req,res)=>{
 
 const traerunPaquete= async (req,res)=>{
     //res.send("Te envio desde la BD todos los paquetes")
-    try {
-        const paquetes = await PaquetesModel.findOne({ where: { idpaquetes: req.params.id } }) // metodo de sequelize
-        // Esto deberia ir en el controlador de destinos, y si necesito los datos consumir su endpoints , cambiarlo despues 
-        // const destinos = await DestinosModel.findOne({ where: { iddestino: `${paquetes.id_destinos}` } }) // metodo de sequelize
-        res.json({paquetes})
+  try {
+      const paquete = await PaquetesModel.findOne({ where: { idpaquetes: req.params.id } });
+
+    if (!paquete) {
+      return res.status(404).json({ message: "Paquete no encontrado." });
+    }
+
+    // Paso 2: Obtener los paquetes_destinos por ids de paquete
+    const paquetesDestinos = await PaquetesDestinosModel.findAll({
+      where: { idpaquete: paquete.idpaquetes }
+    });
+
+    if (!paquetesDestinos.length) {
+      return res.status(404).json({ message: "No se encontraron destinos para este paquete." });
+    }
+
+    // Paso 3: Obtener los destinos por ids de destino
+    const destinosIds = paquetesDestinos.map(paqueteDestino => paqueteDestino.iddestino);
+    const destinos = await DestinosModel.findAll({
+      where: { iddestino: destinosIds }
+    });
+
+    if (!destinos.length) {
+      return res.status(404).json({ message: "No se encontraron destinos con los IDs especificados." });
+    }
+
+    // Paso 4: Combinar los paquetes con sus descripciones de destino
+    const destinosMap = destinos.reduce((map, destino) => {
+      map[destino.iddestino] = destino.titulo_destino;
+      return map;
+    }, {});
+
+    const paqueteConDestinos = paquetesDestinos.map(paqueteDestino => ({
+      ...paquete.dataValues,
+      titulo_destino: destinosMap[paqueteDestino.iddestino]
+    }));
+
+    res.json({ paquete: paqueteConDestinos });
     } catch (error) {
         res.json({message: error.message})
    }
@@ -118,8 +151,6 @@ const obtenerPaquetesPorRegion = async (req, res) => {
       acc[destino.iddestino] = destino.titulo_destino;
       return acc;
     }, {});
-
-    console.log(destinoMap)
 
     // Paso 2: Obtener los paquetes_destinos por ids de destino
     const paquetesDestinos = await PaquetesDestinosModel.findAll({
