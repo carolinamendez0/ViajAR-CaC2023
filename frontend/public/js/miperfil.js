@@ -107,45 +107,7 @@ function decodeJWT(token) {
     return JSON.parse(jsonPayload);
 }
 
-function traerFacturacion(dataUsuario) {
-    $.ajax({
-        type: "GET",
-        url: `/facturacion/${dataUsuario.idusuario}`,
-        contentType: "application/json",
-        success: function (dataf) {
-            const fetchPaquetes = async ()=>{
-                try {
-                    const table = $('#boletosTable').DataTable();
-                    table.clear();
-                    for (const item of dataf) {
-                        const respuesta = await axios.get(`http://localhost:3001/paquetes/${item.id_paquete}`);
-                        const datosRespuesta = respuesta.data;
-                        console.log(datosRespuesta.paquetes.titulo_paquete);
-                        console.log(datosRespuesta.destinos);
-                        const paquetesJson = JSON.stringify(datosRespuesta);
-                        const usuJson = JSON.stringify(dataUsuario);
-
-                        table.row.add([
-                            datosRespuesta.paquetes.titulo_paquete,
-                            datosRespuesta.destinos.titulo_destino,
-                            datosRespuesta.paquetes.descripcion_paquete,
-                            '$ ' + datosRespuesta.paquetes.precio_paquete,
-                            '20/10/2024',
-                            `<button class="btn" onclick='downloadTicket(${JSON.stringify(usuJson)},${JSON.stringify(paquetesJson)})' style="text-align: center;"><i class="fa-regular fa-circle-down"></i></button>`
-                        ]).draw(false);
-                    }
-                } catch (error) {
-                console.error("Error al obtener los posteos", error)
-                }
-            }
-            fetchPaquetes()
-        },
-            error: function (xhr, textStatus, errorThrown) {
-                console.error("Error en la solicitud:", xhr);
-            }
-    });
-}
-
+// 
 // Función para borrar un usuario
 function PopUpDelete(nombre,apellido,id) {
 
