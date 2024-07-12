@@ -6,13 +6,12 @@ router.use(express.json()); // Middleware para parsear el cuerpo de la solicitud
 
 
 
-const {crearUnaFacturacion, traerFacturacion , traerUnaFacturacion} = require ("../controllers/facturacionController.js")
+const {crearUnaFacturacion, traerFacturacion , traerUnaFacturacion, borrarFacturacion} = require ("../controllers/facturacionController.js")
 
 router.get("/", traerFacturacion) 
 router.post("/", crearUnaFacturacion) 
-router.get("/:id",traerUnaFacturacion) 
-
-
+router.get("/:id", traerUnaFacturacion) 
+router.delete("/:id", borrarFacturacion) 
 
 
 module.exports= router
